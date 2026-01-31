@@ -1,0 +1,294 @@
+<navigation-bar title="智享养老" back="{{false}}" bindtap="readText" data-text="智享养老">
+  <view slot="left">
+    <view class="weather-widget" bindtap="readText" data-text="{{weather.city}}{{weather.desc}}{{weather.temp}}度">
+      <text class="weather-icon">{{weather.icon}}</text>
+      <view class="weather-info">
+        <text class="weather-temp">{{weather.temp}}°</text>
+        <text class="weather-city">{{weather.city}} {{weather.desc}}</text>
+      </view>
+      </view>
+    </view>
+  <view slot="center">
+    <view class="data-status-bar" bindtap="showDataEntry">
+      <view class="status-dot {{healthStats.status === 'abnormal' ? 'dot-red' : 'dot-green'}}"></view>
+      <text class="status-text">数据在线</text>
+      <text class="source-icon">{{healthStats.sourceIcon || '⌚'}}</text>
+    </view>
+  </view>
+</navigation-bar>
+
+<scroll-view class="scrollarea" scroll-y>
+  <view class="nav-placeholder" style="height: 41rpx; display: block; box-sizing: border-box"></view>
+  <view class="main-container {{settings.bigFont ? 'big-font' : ''}}">
+    <view class="header-bg-decoration"></view>
+    
+    <!-- 顶部用户信息区 -->
+    <view class="header-section">
+    <view class="greeting-content" bindtap="readText" data-text="{{currentTimeStr}}好，{{userInfo.nickname || userInfo.account || '亲爱的用户'}}。最新报告更新于{{lastUpdateTime}}">
+      <view class="user-greeting">
+        <text class="user-name">{{userInfo.nickname || userInfo.account || '亲爱的用户'}}，{{currentTimeStr}}好 ✨</text>
+      </view>
+      <text class="report-update-time">最新报告更新于 {{lastUpdateTime}}</text>
+    </view>
+    <view class="user-avatar-wrap">
+      <image src="{{userInfo.avatarUrl || '/images/default.png'}}" class="avatar-img" mode="aspectFill"></image>
+    </view>
+  </view>
+
+  <!-- 核心入口：健康打卡 (新增平安守护提醒) -->
+  <view class="check-in-banner card" bindtap="navigateTo" data-url="/pages/check-in/check-in">
+    <view class="check-in-left">
+      <view class="check-in-icon">📝</view>
+      <view class="check-in-info">
+        <text class="check-in-title">今日健康打卡</text>
+        <text class="check-in-desc {{healthStats.todayChecked ? 'checked' : 'pending'}}">
+          {{healthStats.todayChecked ? '今日已签到，儿女已放心' : '未签到，20:00将提醒儿女'}}
+        </text>
+      </view>
+    </view>
+    <view class="check-in-right">
+      <view class="check-in-btn-mini {{healthStats.todayChecked ? 'btn-checked' : ''}}">
+        {{healthStats.todayChecked ? '已完成' : '去打卡'}}
+      </view>
+    </view>
+  </view>
+
+  <!-- 超级核心区：身体报告卡片 -->
+  <view class="report-container status-{{healthStats.status}}">
+    <view class="report-card card" bindtap="navigateToHealth">
+      <view class="report-header">
+        <text class="report-title">今日生活动态</text>
+      </view>
+
+      <view class="overall-status-visual">
+        <view class="health-score-container">
+          <view class="score-circle" style="background: conic-gradient(var(--primary-color) {{(healthStats.score || 92)}}%, #f0f0f0 0);"></view>
+          <view class="score-inner"></view>
+          <view class="health-score-box">
+            <text class="score-val">{{healthStats.score || 92}}</text>
+            <text class="score-label">健康分</text>
+          </view>
+        </view>
+        <view class="overall-status-text" bindtap="readText" data-text="整体状态：{{healthStats.overallText}}">
+          <text class="overall-label">整体状态：</text>
+          <text class="overall-val {{healthStats.status}}">{{healthStats.overallText}}</text>
+        </view>
+      </view>
+      
+      <view class="report-vitals">
+        <view class="vital-row {{healthStats.heartRateStatus}}" bindtap="readText" data-text="当前心率：{{healthStats.heartRate}}，正常">
+          <view class="status-bar"></view>
+          <view class="vital-icon-box">
+            <text class="vital-emoji">❤️</text>
+          </view>
+          <view class="vital-content">
+            <view class="vital-val-row">
+              <text class="vital-val">{{healthStats.heartRate}}</text>
+              <text class="vital-unit">bpm</text>
+            </view>
+            <text class="vital-label">心率</text>
+          </view>
+          <view class="vital-status-tag {{healthStats.heartRateStatus}}">正常</view>
+        </view>
+
+        <view class="vital-row {{healthStats.bpStatus}}" bindtap="readText" data-text="血压：{{healthStats.bloodPressure}}，正常">
+          <view class="status-bar"></view>
+          <view class="vital-icon-box">
+            <text class="vital-emoji">🩸</text>
+          </view>
+          <view class="vital-content">
+            <view class="vital-val-row">
+              <text class="vital-val">{{healthStats.bloodPressure}}</text>
+            </view>
+            <text class="vital-label">血压</text>
+          </view>
+          <view class="vital-status-tag {{healthStats.bpStatus}}">正常</view>
+        </view>
+
+        <view class="vital-row {{healthStats.oxStatus}}" bindtap="readText" data-text="血氧饱和度：{{healthStats.oxygen}}%，优秀">
+          <view class="status-bar"></view>
+          <view class="vital-icon-box">
+            <text class="vital-emoji">💧</text>
+          </view>
+          <view class="vital-content">
+            <view class="vital-val-row">
+              <text class="vital-val">{{healthStats.oxygen}}%</text>
+            </view>
+            <text class="vital-label">血氧</text>
+          </view>
+          <view class="vital-status-tag {{healthStats.oxStatus}}">优秀</view>
+        </view>
+      </view>
+
+      <view class="ai-summary-box" bindtap="readText" data-text="{{healthStats.aiSummary}}">
+        <view class="ai-summary-tag">AI 智能分析</view>
+        <text class="ai-summary-text {{healthStats.status === 'abnormal' ? 'text-red' : ''}}">{{healthStats.aiSummary}}</text>
+        <text class="ai-detail-tip">AI分析基于您的{{healthStats.sourceName}}数据</text>
+      </view>
+
+      <view class="report-actions">
+        <view class="action-btn" catchtap="navigateToHealth">
+          <text>查看详情</text>
+          <text class="arrow">></text>
+        </view>
+        <view class="action-btn" catchtap="navigateToHealthConsult">
+          <text>AI再帮我看看</text>
+          <text class="arrow">></text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 接入方式提示区 -->
+  <view class="data-entry-methods card" bindtap="showDataEntry">
+    <view class="entry-header">
+      <text class="entry-title">数据接入方式</text>
+      <text class="entry-more">点击设置 ></text>
+    </view>
+    <view class="entry-list">
+      <view class="entry-item {{healthStats.sourceType === 'device' ? 'active' : ''}}">
+        <view class="entry-icon-wrap">
+          <text class="entry-icon">⌚</text>
+        </view>
+        <text class="entry-name">自动同步</text>
+        <view class="active-dot" wx:if="{{healthStats.sourceType === 'device'}}"></view>
+      </view>
+      <view class="entry-item {{healthStats.sourceType === 'manual' ? 'active' : ''}}">
+        <view class="entry-icon-wrap">
+          <text class="entry-icon">📝</text>
+        </view>
+        <text class="entry-name">手动添加</text>
+        <view class="active-dot" wx:if="{{healthStats.sourceType === 'manual'}}"></view>
+      </view>
+      <view class="entry-item {{healthStats.sourceType === 'family' ? 'active' : ''}}">
+        <view class="entry-icon-wrap">
+          <text class="entry-icon">👨‍👩‍👦</text>
+        </view>
+        <text class="entry-name">家人录入</text>
+        <view class="active-dot" wx:if="{{healthStats.sourceType === 'family'}}"></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 辅助功能区 -->
+  <view class="secondary-area">
+    <!-- 位置信息卡片 -->
+    <view class="location-card card">
+      <view class="location-info" bindtap="refreshLocation">
+        <view class="location-header">
+          <text class="location-title">平安位置守护</text>
+          <text class="location-time">{{currentLocation.updateTime}} 更新</text>
+        </view>
+        <view class="location-detail">
+          <text class="location-icon">📍</text>
+          <view class="location-text-group">
+            <text class="location-address">{{currentLocation.address || '请点击设置您的家'}}</text>
+            <text class="location-tip" wx:if="{{!currentLocation.address}}">点这里告诉家人您的位置</text>
+            <text class="location-tip" wx:else>已记住：这是您的平安守护点</text>
+          </view>
+        </view>
+      </view>
+      <view class="location-actions-row">
+        <view class="location-mini-btn" bindtap="refreshLocation">
+          <text class="mini-btn-icon">🏠</text>
+        </view>
+        <view class="location-mini-btn" bindtap="shareLocationToWechat">
+          <text class="mini-btn-icon">📤</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 简化后的 AI 咨询 -->
+    <view class="ai-consult-mini card" bindtap="navigateToHealthConsult" style="width: 656rpx; display: flex; box-sizing: border-box">
+      <view class="ai-mini-content">
+        <text class="ai-mini-title">AI 健康助手</text>
+        <text class="ai-mini-desc">随时问我健康问题</text>
+      </view>
+      <text class="ai-mini-icon">🤖</text>
+    </view>
+  </view>
+
+  <!-- 常驻悬浮按钮 -->
+  <view class="fixed-actions" style="position: fixed; left: 560rpx; top: 1049rpx">
+    <view class="add-record-btn" bindtap="showDataEntry">
+      <text class="add-icon">+</text>
+      <text class="add-text">添加记录</text>
+    </view>
+    
+    <view class="call-btn-container {{isCallActive ? 'active' : ''}}" 
+          bindtouchstart="handleCallStart" 
+          bindtouchend="handleCallEnd"
+          bindlongpress="handleCallLongPress">
+      <view class="call-ripple" wx:if="{{isCallActive}}"></view>
+      <view class="call-inner-circle">
+        <text class="call-icon">📞</text>
+        <text class="call-text">呼叫家人</text>
+        <text class="call-sub-text">长按呼叫</text>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 悬浮朗读按钮 -->
+  <movable-area class="float-read-area" wx:if="{{settings.realtimeReading}}">
+    <movable-view class="float-read-btn" direction="all" x="280" y="450" bindtap="readPageContent">
+      <view class="read-ripple"></view>
+      <text class="read-icon">📢</text>
+    </movable-view>
+  </movable-area>
+
+  <!-- 原有功能矩阵 (保留但放在较后位置) -->
+  <view class="service-section">
+    <view class="service-grid">
+      <view class="service-item" bindtap="navigateToMedication">
+        <view class="service-icon-box color-1">
+          <text class="icon">💊</text>
+        </view>
+        <text class="service-name" bindtap="readText" data-text="我的药箱">我的药箱</text>
+      </view>
+      <view class="service-item" bindtap="navigateToFamily">
+        <view class="service-icon-box color-4">
+          <text class="icon">👨‍👩‍👧‍👦</text>
+        </view>
+        <text class="service-name" bindtap="readText" data-text="亲情守护">亲情守护</text>
+      </view>
+      <view class="service-item" bindtap="navigateToCheckIn">
+        <view class="service-icon-box color-3">
+          <text class="icon">✨</text>
+        </view>
+        <text class="service-name" bindtap="readText" data-text="每日签到">每日签到</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 状态激活后的提示 -->
+  <view class="call-alert-overlay" wx:if="{{isCallSent}}">
+    <view class="alert-card animate-pop">
+      <view class="alert-header">
+        <icon type="success" size="64" color="#1890ff"></icon>
+        <text class="alert-title">呼叫已发出</text>
+        <text class="alert-subtitle">您的家人已收到通知，请保持电话畅通</text>
+      </view>
+      
+      <view class="alert-health">
+        <view class="health-item">
+          <text class="label">心率</text>
+          <text class="value">{{healthStats.heartRate}}</text>
+        </view>
+        <view class="health-item">
+          <text class="label">血压</text>
+          <text class="value">{{healthStats.bloodPressure}}</text>
+        </view>
+      </view>
+
+      <view class="alert-actions">
+        <button class="call-phone-btn" bindtap="callGuardianAgain">再次拨打电话</button>
+        <button class="call-cancel-btn" bindtap="cancelCall">已报平安</button>
+      </view>
+    </view>
+  </view>
+
+  <view class="footer-spacer"></view>
+
+
+</view>
+</scroll-view>

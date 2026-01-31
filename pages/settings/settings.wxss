@@ -1,0 +1,217 @@
+.scrollarea {
+  flex: 1;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.nav-placeholder {
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.settings-container {
+  min-height: 100vh;
+  background-color: var(--bg-color);
+}
+
+/* 头部样式 */
+.page-header-alt {
+  padding: 10rpx 40rpx;
+  background: #FFFFFF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom-left-radius: 40rpx;
+  border-bottom-right-radius: 40rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.02);
+}
+
+.page-title {
+  font-size: 44rpx;
+  font-weight: 800;
+  color: var(--text-main);
+  display: block;
+}
+
+.page-subtitle {
+  font-size: 24rpx;
+  color: var(--text-light);
+  margin-top: 8rpx;
+  display: block;
+}
+
+.back-btn {
+  width: 80rpx;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-color);
+  border-radius: 50%;
+}
+
+.back-icon {
+  font-size: 32rpx;
+  color: var(--text-sec);
+}
+
+.settings-content {
+  padding: 20rpx 40rpx;
+}
+
+/* 设置分组 */
+.settings-group {
+  padding: 30rpx 40rpx !important;
+  margin-bottom: 40rpx !important;
+}
+
+.group-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid var(--border-color);
+}
+
+.group-icon {
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  margin-right: 16rpx;
+  border-radius: 12rpx;
+}
+
+.group-icon.accessibility { background: rgba(114, 46, 209, 0.1); color: #722ED1; }
+.group-icon.health { background: rgba(82, 196, 26, 0.1); color: #52C41A; }
+.group-icon.system { background: rgba(91, 143, 249, 0.1); color: #5B8FF9; }
+
+.group-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.setting-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx 0;
+}
+
+.setting-info {
+  flex: 1;
+}
+
+.setting-label {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--text-main);
+  display: block;
+}
+
+.setting-tip {
+  font-size: 22rpx;
+  color: var(--text-light);
+  margin-top: 4rpx;
+  display: block;
+}
+
+/* 动作项样式 */
+.action-text {
+  font-size: 26rpx;
+  color: var(--text-sec);
+  margin-right: 8rpx;
+}
+
+.arrow {
+  font-size: 20rpx;
+  color: var(--text-light);
+  opacity: 0.5;
+}
+
+.setting-badge {
+  background: var(--danger-color);
+  color: #FFFFFF;
+  font-size: 20rpx;
+  padding: 2rpx 12rpx;
+  border-radius: 20rpx;
+  font-weight: 700;
+}
+
+/* 退出按钮 */
+.logout-wrap {
+  margin-top: 60rpx;
+  padding: 0 20rpx;
+}
+
+.btn-outline-danger {
+  width: 100% !important;
+  height: 100rpx;
+  background: transparent;
+  border: 2rpx solid var(--danger-color);
+  color: var(--danger-color);
+  font-weight: 700;
+  border-radius: 50rpx;
+}
+
+/* 大字模式逻辑适配 */
+.big-font .page-title {
+  font-size: 52rpx;
+}
+
+.big-font .page-subtitle {
+  font-size: 28rpx;
+}
+
+.big-font .group-title {
+  font-size: 36rpx;
+}
+
+.big-font .setting-row {
+  padding: 30rpx 0;
+}
+
+.big-font .setting-label {
+  font-size: 36rpx;
+  margin-bottom: 8rpx;
+}
+
+.big-font .setting-tip {
+  font-size: 30rpx;
+  line-height: 1.4;
+}
+
+.big-font .action-text {
+  font-size: 30rpx;
+}
+
+.big-font .setting-badge {
+  font-size: 24rpx;
+  padding: 4rpx 16rpx;
+}
+
+.big-font .btn-outline-primary {
+  height: 120rpx;
+  font-size: 36rpx;
+  border-radius: 60rpx;
+}
+
+/* 确保switch控件在大字模式下不会被挤到下一行 */
+.big-font .setting-row {
+  flex-wrap: nowrap;
+  min-height: 120rpx;
+}
+
+.big-font .setting-info {
+  flex: 1;
+  margin-right: 20rpx;
+  min-width: 0;
+}
+
+.big-font .custom-switch {
+  flex-shrink: 0;
+  transform: scale(1.2);
+}

@@ -1,0 +1,167 @@
+<navigation-bar title="健康档案" back="{{true}}"></navigation-bar>
+
+<scroll-view class="scrollarea" scroll-y>
+  <view class="nav-placeholder" style="height: {{navHeight}}px;"></view>
+  <view class="health-container {{settings.bigFont ? 'big-font' : ''}}">
+    <!-- 页面头部 -->
+  <view class="page-header-alt">
+  <view class="title-section">
+    <text class="page-title" bindtap="readText" data-text="生活动态">生活动态</text>
+    <text class="page-subtitle" bindtap="readText" data-text="AI 智能陪伴中">AI 智能陪伴中</text>
+  </view>
+  <view class="header-status-box">
+    <view class="anomaly-badge" wx:if="{{hasAnomaly}}" bindtap="readText" data-text="发现异常">
+      <text class="dot"></text>
+      <text>发现异常</text>
+    </view>
+    <view class="normal-badge" wx:else bindtap="readText" data-text="状态良好">
+      <text class="dot"></text>
+      <text>状态良好</text>
+    </view>
+  </view>
+</view>
+
+  <!-- AI 健康分析入口 (置顶) -->
+  <view class="ai-analysis-banner card prominent" bindtap="navigateToHealthConsult">
+    <view class="ai-analysis-content">
+      <view class="ai-analysis-info">
+        <view class="ai-tag" bindtap="readText" data-text="AI 关怀助手">AI 关怀助手</view>
+        <text class="ai-analysis-title" bindtap="readText" data-text="您的生活状态分析">您的生活状态分析</text>
+        <text class="ai-analysis-desc" bindtap="readText" data-text="点击查看 AI 为您整理的近期生活动态">点击查看 AI 为您整理的近期生活动态</text>
+      </view>
+      <view class="ai-analysis-visual">
+        <view class="ai-robot-glow"></view>
+        <text class="ai-icon">🤖</text>
+      </view>
+    </view>
+    <view class="ai-analysis-action-btn">
+      <text bindtap="readText" data-text="立即查看关怀建议">立即查看关怀建议</text>
+      <text class="arrow">></text>
+    </view>
+  </view>
+
+  <!-- 生活关注事项入口 -->
+  <view class="medical-history-card card" bindtap="navigateToMedicalHistory">
+    <view class="card-content">
+      <view class="history-icon-wrap">
+        <text class="history-icon">📋</text>
+      </view>
+      <view class="history-info">
+        <view class="history-header">
+          <text class="history-title" bindtap="readText" data-text="生活关注事项">生活关注事项</text>
+          <text class="history-badge" wx:if="{{medicalHistory.length > 0}}" bindtap="readText" data-text="{{medicalHistory.length}} 项记录">{{medicalHistory.length}} 项记录</text>
+        </view>
+        <text class="history-desc" wx:if="{{medicalHistory.length > 0}}" bindtap="readText" data-text="当前关注：{{medicalHistoryText}}">当前关注：{{medicalHistoryText}}</text>
+        <text class="history-desc placeholder" wx:else bindtap="readText" data-text="记录生活注意事项，让 AI 陪伴更贴心">记录生活注意事项，让 AI 陪伴更贴心</text>
+      </view>
+    </view>
+    <text class="arrow">></text>
+  </view>
+
+  <!-- 类型选择器 -->
+  <view class="type-selector-section">
+    <scroll-view scroll-x class="type-scroll" show-scrollbar="{{false}}" enhanced="{{true}}">
+      <view class="type-item {{currentType === 'bp' ? 'active' : ''}}" bindtap="selectType" data-type="bp">
+        <view class="type-icon">💓</view>
+        <text class="type-label">血压</text>
+        <view class="active-dot"></view>
+        <view class="anomaly-dot" wx:if="{{anomalies.bp}}"></view>
+      </view>
+      <view class="type-item {{currentType === 'bg' ? 'active' : ''}}" bindtap="selectType" data-type="bg">
+        <view class="type-icon">🩸</view>
+        <text class="type-label">血糖</text>
+        <view class="active-dot"></view>
+        <view class="anomaly-dot" wx:if="{{anomalies.bg}}"></view>
+      </view>
+      <view class="type-item {{currentType === 'heart' ? 'active' : ''}}" bindtap="selectType" data-type="heart">
+        <view class="type-icon">❤️</view>
+        <text class="type-label">心率</text>
+        <view class="active-dot"></view>
+        <view class="anomaly-dot" wx:if="{{anomalies.heart}}"></view>
+      </view>
+      <view class="type-item {{currentType === 'sleep' ? 'active' : ''}}" bindtap="selectType" data-type="sleep">
+        <view class="type-icon">💤</view>
+        <text class="type-label">睡眠</text>
+        <view class="active-dot"></view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 趋势分析卡片 (简化版) -->
+  <view class="analysis-section card" style="height: 1024rpx; display: block; box-sizing: border-box">
+    <view class="analysis-header">
+      <view class="title-wrap">
+        <text class="analysis-title">当前趋势 · {{currentTypeName}}</text>
+        <text class="analysis-summary">最近 7 天处于{{currentStatusText}}水平</text>
+      </view>
+    </view>
+    
+    <view class="simplified-chart">
+      <view class="chart-bars" style="height: 433rpx; display: flex; box-sizing: border-box">
+        <view class="bar-item" wx:for="{{chartData}}" wx:key="index">
+          <view class="bar-pillar {{item > 80 ? 'high' : (item < 30 ? 'low' : 'normal')}}" style="height: {{item}}%; position: relative; left: -4rpx; top: 0rpx"></view>
+          <view class="bar-label">{{index + 1}}日</view>
+        </view>
+      </view>
+      <view class="chart-indicators">
+        <view class="indicator" style="height: 43rpx; display: block; box-sizing: border-box"><text class="dot normal"></text><text>正常</text></view>
+        <view class="indicator"><text class="dot high"></text><text>偏高</text></view>
+        <view class="indicator"><text class="dot low"></text><text>偏低</text></view>
+      </view>
+    </view>
+
+    <view class="analysis-report prominent" bindtap="readText" data-text="{{analysisText}}">
+      <view class="report-icon">💡</view>
+      <view class="report-content">
+        <text class="report-title">AI 建议</text>
+        <text class="report-text">{{analysisText}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 浮动添加按钮 -->
+  <view class="floating-add-btn" bindtap="navigateToHealthInput" style="width: 656rpx; display: block; box-sizing: border-box; height: -12rpx">
+    <text class="plus-icon">＋</text>
+    <text class="plus-text">记录</text>
+  </view>
+  
+  <!-- 历史记录区 -->
+  <view class="records-section">
+    <view class="section-header">
+      <text class="section-title">最近记录</text>
+    </view>
+    
+    <view class="records-list" wx:if="{{recentRecords.length > 0}}">
+      <view class="record-card card" wx:for="{{recentRecords}}" wx:key="timestamp" bindtap="readText" data-text="{{item.type}}{{item.value}}，记录时间{{item.time}}">
+        <view class="record-left">
+          <view class="record-icon-box {{item.type}}">
+            <text class="record-emoji">{{item.type === '血压' ? '💓' : (item.type === '血糖' ? '🩸' : '❤️')}}</text>
+          </view>
+          <view class="record-info">
+            <text class="record-type">{{item.type}}</text>
+            <text class="record-time">{{item.time}}</text>
+          </view>
+        </view>
+        <view class="record-right">
+          <text class="record-value">{{item.value}}</text>
+          <text class="record-unit">{{item.unit}}</text>
+        </view>
+      </view>
+    </view>
+    
+    <view class="empty-state" wx:else>
+      <text class="empty-icon">📁</text>
+      <text class="empty-tip">暂无相关记录</text>
+    </view>
+  </view>
+
+  <!-- 悬浮朗读按钮 -->
+  <movable-area class="float-read-area" wx:if="{{settings.realtimeReading}}">
+    <movable-view class="float-read-btn" direction="all" x="280" y="450" bindtap="readPageContent">
+      <view class="read-ripple"></view>
+      <text class="read-icon">📢</text>
+    </movable-view>
+  </movable-area>
+  <view class="footer-spacer"></view>
+</view>
+</scroll-view>

@@ -1,0 +1,63 @@
+<navigation-bar title="健康提醒" back="{{true}}"></navigation-bar>
+<scroll-view class="scrollarea" scroll-y>
+  <view class="nav-placeholder" style="height: 152rpx; display: block; box-sizing: border-box"></view>
+  <view class="health-settings-container {{settings.bigFont ? 'big-font' : ''}}">
+    <view class="content">
+    <view class="settings-section card">
+      <view class="section-title">健康数据</view>
+      
+      <view class="setting-item">
+        <text class="setting-label">自动同步健康数据</text>
+        <switch class="setting-switch" checked="{{healthSettings.autoSync}}" bindchange="onAutoSyncChange" />
+      </view>
+      
+      <view class="setting-item">
+        <text class="setting-label">健康数据提醒</text>
+        <switch class="setting-switch" checked="{{healthSettings.healthReminder}}" bindchange="onHealthReminderChange" />
+      </view>
+    </view>
+    
+    <view class="settings-section card">
+      <view class="section-title">用药提醒</view>
+      
+      <view class="setting-item">
+        <text class="setting-label">开启用药提醒</text>
+        <switch class="setting-switch" checked="{{healthSettings.medicationReminder}}" bindchange="onMedicationReminderChange" />
+      </view>
+      
+      <view class="setting-item">
+        <text class="setting-label">提前提醒时间</text>
+        <picker class="setting-picker" mode="selector" range="{{reminderOptions}}" bindchange="onReminderTimeChange" value="{{reminderIndex}}">
+          <text class="picker-value">{{reminderOptions[reminderIndex]}}</text>
+        </picker>
+      </view>
+    </view>
+    
+    <view class="settings-section card">
+      <view class="section-title">生活习惯</view>
+      
+      <view class="setting-item">
+        <text class="setting-label">睡眠提醒</text>
+        <switch class="setting-switch" checked="{{healthSettings.sleepReminder}}" bindchange="onSleepReminderChange" />
+      </view>
+      
+      <view class="setting-item">
+        <text class="setting-label">运动提醒</text>
+        <switch class="setting-switch" checked="{{healthSettings.exerciseReminder}}" bindchange="onExerciseReminderChange" />
+      </view>
+    </view>
+    
+    <view class="action-section">
+      <button class="btn btn-primary" bindtap="saveSettings">保存设置</button>
+    </view>
+    </view>
+  </view>
+</scroll-view>
+
+<!-- 悬浮朗读按钮 -->
+  <movable-area class="float-read-area" wx:if="{{settings.realtimeReading}}">
+    <movable-view class="float-read-btn" direction="all" x="280" y="450" bindtap="readPageContent">
+    <view class="read-ripple"></view>
+    <text class="read-icon">📢</text>
+  </movable-view>
+</movable-area>

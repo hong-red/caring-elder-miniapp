@@ -1,0 +1,78 @@
+<navigation-bar title="通知管理" back="{{true}}"></navigation-bar>
+
+<scroll-view class="scrollarea" scroll-y>
+  <view class="nav-placeholder" style="height: 114rpx; display: block; box-sizing: border-box"></view>
+  <view class="notification-settings-container {{settings.bigFont ? 'big-font' : ''}}">
+    <view class="content">
+      <!-- 无障碍功能 -->
+      <view class="settings-section card accessibility-section">
+        <view class="section-title">无障碍功能</view>
+        
+        <view class="setting-item" bindtap="readText" data-text="大字模式">
+          <view class="label-with-desc">
+            <text class="setting-label">大字模式</text>
+            <text class="setting-desc">放大页面文字，更清晰易读</text>
+          </view>
+          <switch class="setting-switch" checked="{{settings.bigFont}}" bindchange="onBigFontChange" color="#0066FF" />
+        </view>
+        
+        <view class="setting-item" bindtap="readText" data-text="语音功能">
+          <view class="label-with-desc">
+            <text class="setting-label">语音功能</text>
+            <text class="setting-desc">开启后点击播报图标可朗读</text>
+          </view>
+          <switch class="setting-switch" checked="{{settings.realtimeReading}}" bindchange="onRealtimeReadingChange" color="#0066FF" />
+        </view>
+      </view>
+
+      <view class="settings-section card">
+        <view class="section-title" bindtap="readText" data-text="通知设置">通知设置</view>
+        
+        <view class="setting-item" bindtap="readText" data-text="消息通知">
+          <text class="setting-label">消息通知</text>
+          <switch class="setting-switch" checked="{{settings.messageNotification}}" bindchange="onMessageNotificationChange" color="#0066FF" />
+        </view>
+        
+        <view class="setting-item" bindtap="readText" data-text="健康数据提醒">
+          <text class="setting-label">健康数据提醒</text>
+          <switch class="setting-switch" checked="{{settings.healthReminder}}" bindchange="onHealthReminderChange" color="#0066FF" />
+        </view>
+        
+        <view class="setting-item" bindtap="readText" data-text="用药提醒">
+          <text class="setting-label">用药提醒</text>
+          <switch class="setting-switch" checked="{{settings.medicationReminder}}" bindchange="onMedicationReminderChange" color="#0066FF" />
+        </view>
+        
+        <view class="setting-item" bindtap="readText" data-text="家人动态通知">
+          <text class="setting-label">家人动态通知</text>
+          <switch class="setting-switch" checked="{{settings.familyNotification}}" bindchange="onFamilyNotificationChange" color="#0066FF" />
+        </view>
+        
+        <view class="setting-item" bindtap="readText" data-text="系统通知">
+          <text class="setting-label">系统通知</text>
+          <switch class="setting-switch" checked="{{settings.systemNotification}}" bindchange="onSystemNotificationChange" color="#0066FF" />
+        </view>
+      </view>
+      
+      <view class="settings-section card">
+        <view class="section-title" bindtap="readText" data-text="声音与振动">声音与振动</view>
+        
+        <view class="setting-item" bindtap="readText" data-text="通知声音">
+          <text class="setting-label">通知声音</text>
+          <switch class="setting-switch" checked="{{settings.sound}}" bindchange="onSoundChange" color="#0066FF" />
+        </view>
+        
+        <view class="setting-item" bindtap="readText" data-text="振动提醒">
+          <text class="setting-label">振动提醒</text>
+          <switch class="setting-switch" checked="{{settings.vibration}}" bindchange="onVibrationChange" color="#0066FF" />
+        </view>
+      </view>
+      
+      <view class="action-section">
+        <button class="btn btn-primary" bindtap="saveSettings">保存设置</button>
+      </view>
+      <view class="safe-area-inset-bottom"></view>
+    </view>
+  </view>
+</scroll-view>
+

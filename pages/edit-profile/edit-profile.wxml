@@ -1,0 +1,39 @@
+<navigation-bar title="编辑个人资料" back="{{true}}"></navigation-bar>
+<scroll-view class="scrollarea" scroll-y>
+  <view class="nav-placeholder" style="height: {{navHeight}}px;"></view>
+  <view class="edit-profile-container {{settings.bigFont ? 'big-font' : ''}}">
+    <view class="content">
+    <form class="profile-form card">
+      <view class="form-item">
+        <text class="form-label">昵称</text>
+        <input class="form-input" placeholder="请输入昵称" value="{{userInfo.nickname}}" bindinput="onNicknameInput" />
+      </view>
+      
+      <view class="form-item">
+        <text class="form-label">手机号</text>
+        <input class="form-input" placeholder="请输入手机号" type="number" value="{{userInfo.phone}}" bindinput="onPhoneInput" />
+      </view>
+      
+      <view class="form-item">
+        <text class="form-label">性别</text>
+        <picker class="form-picker" mode="selector" range="{{genderOptions}}" bindchange="onGenderChange" value="{{genderIndex}}">
+          <text class="picker-value">{{genderOptions[genderIndex]}}</text>
+        </picker>
+      </view>
+      
+      <view class="form-item">
+        <text class="form-label">生日</text>
+        <picker class="form-picker" mode="date" bindchange="onBirthdayChange" value="{{birthday}}">
+          <text class="picker-value">{{birthday || '请选择生日'}}</text>
+        </picker>
+      </view>
+    </form>
+    
+    <view class="action-section">
+      <button class="btn btn-primary" bindtap="saveProfile">保存修改</button>
+    </view>
+    </view>
+  </view>
+
+
+</scroll-view>

@@ -1,0 +1,192 @@
+.scrollarea {
+  flex: 1;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.scrollarea::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
+.health-input-container {
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  padding-top: 0 !important; /* 覆盖 app.wxss 中的 padding-top */
+}
+
+/* 移除旧的自定义导航栏样式 */
+.custom-nav-bar {
+  display: none;
+}
+
+.input-content {
+  padding: 0rpx 40rpx 0;
+}
+
+.info-card {
+  display: flex;
+  align-items: center;
+  background: var(--primary-light) !important;
+  border: none !important;
+  margin-bottom: 40rpx !important;
+}
+
+.card-icon {
+  font-size: 50rpx;
+  margin-right: 24rpx;
+}
+
+.card-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: var(--primary-color);
+  display: block;
+}
+
+.card-desc {
+  font-size: 24rpx;
+  color: var(--text-sec);
+  margin-top: 4rpx;
+  display: block;
+}
+
+/* 表单样式 */
+.form-group {
+  margin-bottom: 30rpx !important;
+}
+
+.group-header {
+  margin-bottom: 30rpx;
+}
+
+.group-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: var(--text-main);
+  position: relative;
+  padding-left: 20rpx;
+}
+
+.group-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6rpx;
+  height: 24rpx;
+  background: var(--primary-color);
+  border-radius: 4rpx;
+}
+
+.input-suffix {
+  font-size: 24rpx;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+/* 血压网格 */
+.bp-input-grid {
+  display: flex;
+  align-items: flex-end;
+  gap: 20rpx;
+}
+
+.bp-input-item {
+  flex: 1;
+  margin-bottom: 0 !important;
+}
+
+.bp-unit {
+  font-size: 20rpx;
+  color: var(--text-light);
+}
+
+.bp-divider {
+  width: 40rpx;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 30rpx;
+}
+
+.bp-divider .line {
+  width: 2rpx;
+  height: 60rpx;
+  background: var(--border-color);
+  transform: rotate(15deg);
+}
+
+/* 提交区域 */
+.submit-section {
+  padding: 40rpx 30rpx;
+  text-align: center;
+}
+
+.submit-btn {
+  width: 100% !important;
+  height: 110rpx;
+  font-size: 34rpx !important;
+  border-radius: 55rpx !important;
+  margin-bottom: 24rpx;
+}
+
+.time-tip {
+  font-size: 24rpx;
+  color: var(--text-light);
+}
+
+/* 参考标准 */
+.reference-card {
+  background: #FAFAFA !important;
+  border: 1rpx solid var(--border-color) !important;
+}
+
+.ref-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.ref-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.ref-tag {
+  font-size: 20rpx;
+  background: rgba(0,0,0,0.05);
+  padding: 4rpx 12rpx;
+  border-radius: 6rpx;
+  color: var(--text-sec);
+}
+
+.ref-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.ref-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 26rpx;
+}
+
+.ref-name {
+  color: var(--text-sec);
+}
+
+.ref-val {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.placeholder-style {
+  color: var(--text-light);
+  font-weight: 400;
+  font-size: 28rpx;
+}

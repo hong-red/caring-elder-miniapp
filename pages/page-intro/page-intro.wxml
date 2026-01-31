@@ -1,0 +1,35 @@
+<navigation-bar title="帮助与介绍" back="{{true}}"></navigation-bar>
+
+<view class="container">
+  <view class="intro-card">
+    <view class="card-header">
+      <view class="icon-box">
+        <text class="emoji">💡</text>
+      </view>
+      <view class="title">本页功能指南</view>
+    </view>
+    
+    <scroll-view scroll-y class="content-scroll">
+      <view class="content">
+        <text>{{introText}}</text>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="action-box">
+    <button class="voice-btn {{isSpeaking ? 'speaking' : ''}}" bindtap="toggleVoice">
+      <view class="btn-content">
+        <text class="btn-icon">{{isSpeaking ? '⏹️' : '📢'}}</text>
+        <text>{{isSpeaking ? '停止朗读' : '朗读给我听'}}</text>
+      </view>
+    </button>
+    
+    <button class="back-btn" bindtap="goBack">
+      <text>我知道了，返回</text>
+    </button>
+  </view>
+
+  <view class="footer-tips">
+    <text>提示：如果听不到声音，请检查手机静音开关或音量设置</text>
+  </view>
+</view>

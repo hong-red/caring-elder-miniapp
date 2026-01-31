@@ -1,0 +1,82 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/register/register",
+    "pages/main/main",
+    "pages/health/health",
+    "pages/medication/medication",
+    "pages/family/family",
+    "pages/profile/profile",
+    "pages/health-input/health-input",
+    "pages/health-consult/health-consult",
+    "pages/check-in/check-in",
+    "pages/personal-info/personal-info",
+    "pages/edit-profile/edit-profile",
+    "pages/health-settings/health-settings",
+    "pages/notification-settings/notification-settings",
+    "pages/about-us/about-us",
+    "pages/family-detail/family-detail",
+    "pages/bind-family/bind-family",
+    "pages/medication/edit/edit",
+    "pages/medical-history/medical-history",
+    "pages/settings/settings",
+    "pages/page-intro/page-intro",
+    "pages/audio-test/audio-test",
+    "pages/agreement/agreement",
+    "pages/privacy/privacy"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarBackgroundColor": "#fff"
+  },
+
+  "tabBar": {
+    "custom": true,
+    "color": "#A0AEC0",
+    "selectedColor": "#0066FF",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/main/main",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/health/health",
+        "text": "健康"
+      },
+      {
+        "pagePath": "pages/medication/medication",
+        "text": "用药"
+      },
+      {
+        "pagePath": "pages/family/family",
+        "text": "家人"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "permission": {
+    "scope.userLocation": {
+      "desc": "用于向联系人同步您的位置信息"
+    }
+  },
+  "requiredPrivateInfos": [
+    "chooseLocation",
+    "chooseAddress"
+  ],
+  "__usePrivacyCheck__": false,
+  "requiredBackgroundModes": [
+    "audio"
+  ],
+  "lazyCodeLoading": "requiredComponents",
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  }
+}

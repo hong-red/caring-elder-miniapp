@@ -1,0 +1,159 @@
+.personal-info-container {
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.scrollarea {
+  flex: 1;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.scrollarea::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+  display: none;
+}
+
+/* 自定义导航栏 */
+.custom-nav-bar {
+  display: none;
+}
+
+.nav-back {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.nav-back:active {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.back-icon {
+  font-size: 40rpx;
+  color: #333;
+  font-weight: bold;
+}
+
+.nav-title {
+  flex: 1;
+  text-align: center;
+}
+
+.nav-right {
+  width: 60rpx;
+}
+
+.page-header {
+  padding: 0rpx 40rpx;
+  background: #FFFFFF;
+  margin-bottom: 30rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+}
+
+.page-title {
+  font-size: 36rpx;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.content {
+  padding: 0 40rpx;
+}
+
+.info-section {
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: var(--shadow-normal);
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid var(--border-color);
+}
+
+.info-item:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  font-size: 28rpx;
+  color: var(--text-sec);
+}
+
+.info-value {
+  font-size: 28rpx;
+  color: var(--text-main);
+  font-weight: 500;
+  text-align: right;
+}
+
+/* 大字模式适配 (已在 app.wxss 中全局优化，此处仅保留特殊微调) */
+.big-font .info-item {
+  border-bottom-width: 2rpx;
+}
+
+.big-font .info-value {
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+.action-section {
+  margin-top: 40rpx;
+}
+
+.btn {
+  width: 100%;
+  height: 90rpx;
+  border-radius: 16rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  transition: all 0.3s;
+  border: none;
+  outline: none;
+}
+
+.btn-primary {
+  background: var(--primary-color);
+  color: #FFFFFF;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-secondary {
+  background: var(--bg-color);
+  color: var(--text-main);
+  border: 2rpx solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background: rgba(91, 143, 249, 0.05);
+}
+
+.btn-danger {
+  background: #FF4D4F;
+  color: #FFFFFF;
+}
+
+.btn-danger:hover {
+  opacity: 0.9;
+}

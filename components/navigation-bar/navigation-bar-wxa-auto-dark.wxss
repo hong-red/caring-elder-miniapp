@@ -1,0 +1,24 @@
+/* 
+此文件为开发者工具生成，生成时间: 2026/1/26下午8:00:18
+使用方法：
+在 navigation-bar.wxss 文件末尾引入样式
+```
+@import "./navigation-bar-wxa-auto-dark.wxss";
+```
+ */
+
+@media (prefers-color-scheme: dark) {
+    .weui-navigation-bar {
+        --weui-FG-0: rgba(255, 255, 255, 0.9);
+    }
+
+    @keyframes loading {
+        from {
+            transform: rotate(0);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+}
