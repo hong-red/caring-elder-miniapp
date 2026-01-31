@@ -1,0 +1,103 @@
+<navigation-bar title="通讯录" back="{{false}}">
+  <view slot="right">
+    <view bindtap="bindFamily">
+      <text class="plus-icon" style="width: -webkit-fill-available; height: 1418rpx; box-sizing: border-box; display: flex; position: relative; left: -30rpx; top: 764rpx">＋</text>
+    </view>
+  </view>
+</navigation-bar>
+
+<scroll-view class="scrollarea" scroll-y>
+  <view class="nav-placeholder" style="height: -6rpx; display: block; box-sizing: border-box"></view>
+  <view class="family-container {{settings.bigFont ? 'big-font' : ''}}">
+    <view class="page-header-alt" style="height: 120rpx; display: flex; box-sizing: border-box">
+    <view class="title-section" bindtap="readText" data-text="联系亲友，时刻相伴">
+      <text class="page-title">通讯录</text>
+      <text class="page-subtitle">连接亲友，时刻相伴</text>
+    </view>
+  </view>
+  
+  <view class="stats-overview card">
+    <view class="stats-grid">
+      <view class="stats-item" bindtap="readText" data-text="全部联系人：{{familyMembers.length}}位">
+        <text class="stats-val">{{familyMembers.length || 0}}</text>
+        <text class="stats-label">全部联系人</text>
+      </view>
+      <view class="stats-divider"></view>
+      <view class="stats-item" bindtap="readText" data-text="常用联系人：0位">
+        <text class="stats-val">0</text>
+        <text class="stats-label">常用</text>
+      </view>
+      <view class="stats-divider"></view>
+      <view class="stats-item" bindtap="readText" data-text="待处理申请：0件">
+        <text class="stats-val">0</text>
+        <text class="stats-label">待处理</text>
+      </view>
+    </view>
+  </view>
+  
+  <view class="content-section">
+    <!-- 移除订阅消息引导和呼叫动态区域 -->
+
+    <view class="section-header">
+      <text class="section-title">我的联系人</text>
+      <text class="section-count" wx:if="{{familyMembers.length > 0}}">共 {{familyMembers.length}} 位</text>
+    </view>
+    
+    <view class="family-list" wx:if="{{familyMembers.length > 0}}">
+      <view class="family-item card" wx:for="{{familyMembers}}" wx:key="id" bindtap="viewFamilyDetail" data-id="{{item.id}}" hover-class="card-hover">
+        <view class="item-main">
+          <view class="avatar-container">
+            <view class="avatar-placeholder">
+              <text class="avatar-emoji">{{item.relation === '子女' ? '👨' : (item.relation === '配偶' ? '👵' : (item.relation === '朋友' ? '😊' : '👤'))}}</text>
+            </view>
+            <view class="status-indicator online"></view>
+          </view>
+          <view class="member-info" bindtap="readText" data-text="{{item.name}}，关系：{{item.relation}}，最近活跃：刚刚">
+            <view class="name-line">
+              <text class="member-name">{{item.name}}</text>
+              <text class="relation-badge">{{item.relation}}</text>
+            </view>
+            <view class="activity-line">
+              <text class="activity-text">最近活跃：刚刚</text>
+            </view>
+          </view>
+          <view class="item-action">
+            <text class="arrow-icon">❯</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <view class="empty-family card" wx:else>
+      <view class="empty-content" bindtap="readText" data-text="还没有添加联系人。您可以添加家人、朋友，方便随时联系。">
+        <view class="empty-illustration">👥</view>
+        <text class="empty-title">开启便捷沟通</text>
+        <text class="empty-desc">添加联系人，与亲友保持紧密联系</text>
+        <view class="benefit-list">
+          <view class="benefit-item">✅ 随时查看亲友健康动态</view>
+          <view class="benefit-item">✅ 便捷发消息与位置共享</view>
+          <view class="benefit-item">✅ 记录每一个温馨时刻</view>
+        </view>
+        <button class="btn btn-primary bind-btn" bindtap="bindFamily">立即添加联系人</button>
+      </view>
+    </view>
+  </view>
+
+  <view class="footer-spacer" style="height: -14rpx; display: block; box-sizing: border-box"></view>
+</view>
+<!-- 悬浮操作按钮 (FAB) -->
+<view class="fab-container" bindtap="bindFamily">
+    <view class="fab-btn">
+      <text class="fab-icon">＋</text>
+    </view>
+    <text class="fab-label">添加联系人</text>
+  </view>
+
+<!-- 悬浮朗读按钮 -->
+  <movable-area class="float-read-area" wx:if="{{settings.realtimeReading}}">
+    <movable-view class="float-read-btn" direction="all" x="280" y="450" bindtap="readPageContent">
+      <view class="read-ripple"></view>
+      <text class="read-icon">📢</text>
+    </movable-view>
+  </movable-area>
+</scroll-view>

@@ -1,0 +1,100 @@
+<view class="register-container {{settings.bigFont ? 'big-font' : ''}}">
+  <navigation-bar title="注册" back="{{true}}" background="transparent"></navigation-bar>
+  
+  <scroll-view class="scrollarea" scroll-y>
+    <view class="page-header">
+    <text class="page-title">加入智享养老</text>
+    <text class="page-subtitle">开启您的智慧养老新生活</text>
+  </view>
+
+  <view class="register-content">
+    <!-- 类型选择 -->
+    <view class="type-selector-section">
+      <text class="section-label">请选择您的身份</text>
+      <view class="type-options">
+        <view class="type-option-card {{registerType === 'elder' ? 'active' : ''}}" bindtap="selectRegisterType" data-type="elder">
+          <view class="option-icon">👴</view>
+          <view class="option-info">
+            <text class="option-title">长辈模式</text>
+            <text class="option-desc">操作简单 字大清晰</text>
+          </view>
+          <view class="check-mark" wx:if="{{registerType === 'elder'}}">✓</view>
+        </view>
+        
+        <view class="type-option-card {{registerType === 'child' ? 'active' : ''}}" bindtap="selectRegisterType" data-type="child">
+          <view class="option-icon">📱</view>
+          <view class="option-info">
+            <text class="option-title">子女模式</text>
+            <text class="option-desc">远程关爱 实时提醒</text>
+          </view>
+          <view class="check-mark" wx:if="{{registerType === 'child'}}">✓</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 注册表单 -->
+    <view class="form-card card">
+      <view class="input-group">
+        <text class="input-label">账号</text>
+        <view class="input-wrap">
+          <view class="field-icon">👤</view>
+          <input class="input-field" placeholder="请设置登录账号" bindinput="onAccountInput" value="{{account}}" placeholder-class="input-placeholder" />
+        </view>
+      </view>
+
+      <view class="input-group">
+        <text class="input-label">您的姓名/昵称</text>
+        <view class="input-wrap">
+          <view class="field-icon">🏷️</view>
+          <input class="input-field" placeholder="怎么称呼您？" bindinput="onNicknameInput" value="{{nickname}}" placeholder-class="input-placeholder" />
+        </view>
+      </view>
+
+      <view class="input-group">
+        <text class="input-label">手机号码</text>
+        <view class="input-wrap">
+          <view class="field-icon">📞</view>
+          <input class="input-field" placeholder="请输入手机号码" type="number" bindinput="onPhoneInput" value="{{phone}}" placeholder-class="input-placeholder" maxlength="11" />
+        </view>
+      </view>
+
+
+
+      <view class="input-group">
+        <text class="input-label">设置密码</text>
+        <view class="input-wrap">
+          <view class="field-icon">🔒</view>
+          <input class="input-field" placeholder="请设置登录密码" password="{{!showPassword}}" bindinput="onPasswordInput" value="{{password}}" placeholder-class="input-placeholder" />
+          <view class="password-toggle" bindtap="togglePassword">
+            <text class="toggle-icon">{{showPassword ? '👁️' : '👁️‍🗨️'}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="input-group">
+        <text class="input-label">确认密码</text>
+        <view class="input-wrap">
+          <view class="field-icon">🛡️</view>
+          <input class="input-field" placeholder="请再次确认密码" password="{{!showConfirmPassword}}" bindinput="onConfirmPasswordInput" value="{{confirmPassword}}" placeholder-class="input-placeholder" />
+          <view class="password-toggle" bindtap="toggleConfirmPassword">
+            <text class="toggle-icon">{{showConfirmPassword ? '👁️' : '👁️‍🗨️'}}</text>
+          </view>
+        </view>
+      </view>
+
+      <button class="btn btn-primary register-submit-btn" bindtap="register" hover-class="btn-hover">
+        立即注册
+      </button>
+
+      <view class="login-prompt">
+        <text>已有账号？</text>
+        <text class="login-link-text" bindtap="navigateToLogin">返回登录</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="page-footer">
+    <text class="agreement">注册即视为同意 <text class="link">《用户注册协议》</text></text>
+  </view>
+</scroll-view>
+</view>

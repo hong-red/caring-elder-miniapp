@@ -1,0 +1,48 @@
+/* 
+此文件为开发者工具生成，生成时间: 2026/1/26下午8:00:18
+使用方法：
+在 login.wxss 文件末尾引入样式
+```
+@import "./login-wxa-auto-dark.wxss";
+```
+ */
+
+@media (prefers-color-scheme: dark) {
+    .scrollarea::-webkit-scrollbar {
+        color: rgba(0, 0, 0, 0);
+    }
+
+    .brand-logo {
+        background: rgb(17, 17, 17);
+    }
+
+    .role-tabs {
+        background: rgba(255, 255, 255, 0.03);
+    }
+
+    .role-tab.active {
+        background: rgb(17, 17, 17);
+    }
+
+    .input-wrap {
+        background: rgb(17, 17, 17) !important;
+        border: rgb(0, 0, 0);
+    }
+
+    .register-btn {
+        background: rgba(0, 0, 0, 0) !important;
+    }
+
+    .line {
+        background: rgb(29, 29, 29);
+    }
+
+    .divider-text {
+        color: rgb(99, 99, 99);
+    }
+
+    .btn-wechat {
+        background: rgb(0, 105, 12) !important;
+        color: rgb(17, 17, 17) !important;
+    }
+}

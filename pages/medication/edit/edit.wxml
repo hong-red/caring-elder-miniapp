@@ -1,0 +1,91 @@
+<view class="medication-edit-container {{settings.bigFont ? 'big-font' : ''}}">
+  <navigation-bar title="{{id ? '编辑药品' : '添加药品'}}" back="{{true}}" background="#fff"></navigation-bar>
+  
+  <scroll-view class="scrollarea" scroll-y>
+    <view class="nav-placeholder" style="height: {{navHeight}}px;"></view>
+    
+    <view class="content">
+    <form bindsubmit="submitMedication">
+      <view class="form-group card">
+        <view class="section-tag">基本信息</view>
+        
+        <!-- 药品名称 -->
+        <view class="input-group">
+          <text class="input-label">药品名称</text>
+          <view class="input-wrap">
+            <input class="input-field" name="name" value="{{name}}" bindinput="onNameInput" placeholder="请输入药品名称" placeholder-class="input-placeholder" required />
+          </view>
+        </view>
+        
+        <!-- 药品描述 -->
+        <view class="input-group">
+          <text class="input-label">药品描述</text>
+          <view class="input-wrap textarea-wrap">
+            <textarea class="input-field row-textarea" name="desc" value="{{desc}}" bindinput="onDescInput" placeholder="请输入药品用途或备注（可选）" placeholder-class="input-placeholder" />
+          </view>
+        </view>
+      </view>
+
+      <view class="form-group card">
+        <view class="section-tag">用药计划</view>
+        
+        <!-- 服用剂量 -->
+        <view class="input-group">
+          <text class="input-label">服用剂量</text>
+          <view class="input-wrap">
+            <input class="input-field" name="dosage" value="{{dosage}}" bindinput="onDosageInput" placeholder="例如：每次1片 / 10ml" placeholder-class="input-placeholder" />
+          </view>
+        </view>
+        
+        <!-- 服用频率 -->
+        <view class="input-group">
+          <text class="input-label">服用频率</text>
+          <picker mode="selector" range="{{['每日1次', '每日2次', '每日3次', '按需服用']}}" bindchange="onFreqChange">
+            <view class="input-wrap picker-wrap">
+              <text class="input-field {{frequency ? '' : 'input-placeholder'}}">{{frequency || '请选择服药频率'}}</text>
+              <text class="arrow">❯</text>
+            </view>
+          </picker>
+        </view>
+
+        <!-- 提醒时间 -->
+        <view class="input-group">
+          <text class="input-label">提醒时间</text>
+          <picker mode="time" bindchange="onTimeChange">
+            <view class="input-wrap picker-wrap">
+              <text class="input-field {{remindTime ? '' : 'input-placeholder'}}">{{remindTime || '请设置提醒时间'}}</text>
+              <text class="arrow">❯</text>
+            </view>
+          </picker>
+        </view>
+
+        <!-- 同步到日历 -->
+        <view class="input-group">
+          <view class="label-with-desc">
+            <text class="input-label">设置手机闹钟</text>
+            <text class="label-tip">同步至系统日历提醒</text>
+          </view>
+          <switch checked="{{syncToCalendar}}" bindchange="onSyncChange" color="#07c160" />
+        </view>
+
+        <!-- 有效期 -->
+        <view class="input-group">
+          <text class="input-label">有效期至</text>
+          <picker mode="date" bindchange="onExpiryChange">
+            <view class="input-wrap picker-wrap">
+              <text class="input-field {{expiryDate ? '' : 'input-placeholder'}}">{{expiryDate || '请选择有效期（可选）'}}</text>
+              <text class="arrow">❯</text>
+            </view>
+          </picker>
+        </view>
+      </view>
+      
+      <view class="submit-section">
+        <button class="btn btn-primary submit-btn" form-type="submit">确认保存</button>
+        <text class="submit-tip">保存后系统将准时推送服药提醒</text>
+      </view>
+    </form>
+    <view class="safe-area-inset-bottom"></view>
+  </view>
+</scroll-view>
+</view>

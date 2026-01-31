@@ -1,0 +1,92 @@
+<navigation-bar title="健康打卡" back="{{true}}"></navigation-bar>
+<scroll-view class="scrollarea" scroll-y>
+  <view class="nav-placeholder" style="height: {{navHeight}}px;"></view>
+  <view class="check-in-container {{settings.bigFont ? 'big-font' : ''}}">
+    <view class="page-header-alt" style="height: 168rpx; display: flex; box-sizing: border-box">
+      <view class="title-section">
+        <text class="page-title" bindtap="readText" data-text="健康打卡">健康打卡</text>
+        <text class="page-subtitle" bindtap="readText" data-text="坚持每日打卡，记录健康生活">坚持每日打卡，记录健康生活</text>
+      </view>
+      <view class="date-badge" bindtap="readText" data-text="{{currentDate}}">
+        <text class="date-text">{{currentDate}}</text>
+      </view>
+    </view>
+    
+    <view class="check-in-main">
+      <!-- 打卡核心区域 -->
+      <view class="check-in-hero card">
+        <view class="hero-content">
+          <view class="status-visual {{todayChecked ? 'is-checked' : ''}}">
+            <view class="visual-circle">
+              <text class="visual-icon">{{todayChecked ? '✨' : '📝'}}</text>
+            </view>
+            <view class="pulse-ring" wx:if="{{!todayChecked}}"></view>
+          </view>
+          <view class="status-info">
+            <text class="status-title">{{todayChecked ? '今日任务已完成' : '开启今日健康打卡'}}</text>
+            <text class="status-desc">{{todayChecked ? '太棒了！请继续保持良好的生活习惯' : '记录当下状态，关注长期健康'}}</text>
+          </view>
+          <button class="btn btn-primary check-in-btn {{todayChecked ? 'btn-disabled' : ''}}" 
+                  bindtap="checkIn" 
+                  disabled="{{todayChecked}}"
+                  hover-class="btn-hover">
+            {{todayChecked ? '今日已打卡' : '立即签到打卡'}}
+          </button>
+        </view>
+
+        <!-- 安全守护提醒 -->
+        <view class="safety-notice">
+          <text class="notice-icon">🛡️</text>
+          <view class="notice-content">
+            <text class="notice-title">平安守护规则</text>
+            <text class="notice-desc">若您今日未在 20:00 前签到，系统将自动发送平安短信通知您的子女，确保您的安全。</text>
+          </view>
+        </view>
+        
+        <view class="hero-stats">
+          <view class="stat-box">
+            <text class="stat-val">{{totalDays}}</text>
+            <text class="stat-tag">累计打卡</text>
+          </view>
+          <view class="stat-divider"></view>
+          <view class="stat-box">
+            <text class="stat-val">{{continuousDays}}</text>
+            <text class="stat-tag">连续打卡</text>
+          </view>
+        </view>
+      </view>
+      
+      <!-- 打卡日历/记录 -->
+      <view class="history-section">
+        <view class="section-header">
+          <text class="section-title">打卡记录</text>
+        </view>
+        
+        <view class="history-list" wx:if="{{checkInHistory.length > 0}}">
+          <view class="history-card card" wx:for="{{checkInHistory}}" wx:key="date">
+            <view class="history-left">
+              <view class="history-dot {{item.checked ? 'dot-active' : ''}}"></view>
+              <view class="history-meta">
+                <text class="history-date">{{item.date}}</text>
+                <text class="history-time" wx:if="{{item.checked}}">打卡时间: {{item.time}}</text>
+              </view>
+            </view>
+            <view class="history-right">
+              <view class="status-label {{item.checked ? 'text-primary' : 'text-light'}}">
+                {{item.checked ? '已打卡' : '未打卡'}}
+              </view>
+            </view>
+          </view>
+        </view>
+        
+        <view class="empty-history card" wx:else>
+          <view class="empty-box">
+            <text class="empty-icon">📅</text>
+            <text class="empty-tip">暂无打卡记录，从今天开始吧</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</scroll-view>

@@ -1,0 +1,84 @@
+.container {
+  padding: 30rpx;
+  background-color: #f0f2f5;
+  min-height: 100vh;
+}
+
+.test-card {
+  background: white;
+  border-radius: 20rpx;
+  padding: 40rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.1);
+}
+
+.status {
+  text-align: center;
+  font-size: 40rpx;
+  font-weight: bold;
+  margin-bottom: 40rpx;
+  color: #666;
+  padding: 20rpx;
+  border-bottom: 2rpx solid #eee;
+}
+
+.status.active {
+  color: #00c853;
+}
+
+.section-title {
+  font-size: 28rpx;
+  color: #999;
+  margin: 30rpx 0 20rpx;
+}
+
+.test-btn {
+  margin-bottom: 20rpx;
+  background: #fff;
+  border: 2rpx solid #0066FF;
+  color: #0066FF;
+  border-radius: 10rpx;
+}
+
+.test-btn.tts {
+  background: #0066FF;
+  color: #fff;
+}
+
+.stop-btn {
+  margin-top: 40rpx;
+  background: #ff5252;
+  color: white;
+}
+
+.log-box {
+  margin-top: 40rpx;
+  background: #333;
+  color: #00ff00;
+  padding: 20rpx;
+  border-radius: 10rpx;
+  font-family: monospace;
+}
+
+.log-title {
+  font-size: 24rpx;
+  border-bottom: 1rpx solid #444;
+  margin-bottom: 10rpx;
+  padding-bottom: 10rpx;
+}
+
+.log-content {
+  height: 300rpx;
+}
+
+.log-item {
+  font-size: 22rpx;
+  margin-bottom: 6rpx;
+}
+
+.footer {
+  margin-top: 40rpx;
+  font-size: 24rpx;
+  color: #888;
+  text-align: center;
+  line-height: 1.6;
+}

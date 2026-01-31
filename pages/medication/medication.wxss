@@ -1,0 +1,345 @@
+.scrollarea {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.scrollarea::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
+.medication-container {
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  padding-top: 0 !important; /* 覆盖 app.wxss 中的 padding-top */
+  padding-bottom: 250rpx; /* 为自定义 TabBar 留出空间 */
+}
+
+/* 移除旧的自定义导航栏样式（如果有） */
+.custom-nav-bar {
+  display: none;
+}
+
+/* 顶部栏 */
+.header-section {
+  padding: 0rpx 40rpx 0rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title-section {
+  flex: 1;
+}
+
+.page-title {
+  font-size: 38rpx;
+  font-weight: 800;
+  color: var(--text-main);
+  display: block;
+}
+
+.page-subtitle {
+  font-size: 24rpx;
+  color: var(--text-sec);
+  margin-top: 2rpx;
+  display: block;
+}
+
+.add-icon {
+  font-size: 60rpx;
+  color: #FFFFFF;
+  line-height: 1;
+  margin-top: -4rpx; /* 视觉对齐微调 */
+}
+
+.btn-circle {
+  width: 96rpx !important;
+  height: 96rpx !important;
+  min-height: 96rpx !important;
+  min-width: 96rpx !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 8rpx 32rpx rgba(91, 143, 249, 0.3) !important;
+  border: none !important;
+  overflow: hidden !important;
+}
+
+/* 进度卡片 */
+.today-progress {
+  margin: 0 30rpx 30rpx !important;
+  background: linear-gradient(135deg, var(--primary-color), #8EB3FF) !important;
+  color: #FFFFFF;
+  padding: 30rpx !important;
+  border-radius: 40rpx !important;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 20rpx;
+}
+
+.progress-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.progress-percent {
+  font-size: 40rpx;
+  font-weight: 800;
+}
+
+.progress-bar-bg {
+  height: 12rpx;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 6rpx;
+  overflow: hidden;
+  margin-bottom: 20rpx;
+}
+
+.progress-bar-active {
+  height: 100%;
+  background: #FFFFFF;
+  border-radius: 6rpx;
+  transition: width 0.6s ease;
+}
+
+.progress-tip {
+  font-size: 22rpx;
+  opacity: 0.8;
+}
+
+/* 大字模式适配 */
+.big-font .page-title { font-size: 54rpx !important; }
+.big-font .page-subtitle { font-size: 32rpx !important; }
+.big-font .progress-title { font-size: 38rpx !important; }
+.big-font .progress-percent { font-size: 50rpx !important; }
+.big-font .progress-tip { font-size: 30rpx !important; }
+.big-font .section-title { font-size: 40rpx !important; }
+.big-font .med-name { font-size: 44rpx !important; }
+.big-font .med-dosage { font-size: 36rpx !important; }
+.big-font .med-desc { font-size: 30rpx !important; }
+.big-font .time-tag { font-size: 32rpx !important; padding: 8rpx 20rpx !important; }
+.big-font .action-btn { font-size: 36rpx !important; padding: 12rpx 30rpx !important; }
+.big-font .empty-text { font-size: 36rpx !important; }
+.big-font .empty-add-btn { font-size: 40rpx !important; padding: 24rpx 48rpx !important; }
+
+/* 列表区域 */
+.medication-section {
+  padding: 0 30rpx;
+}
+
+.section-header {
+  margin-bottom: 16rpx;
+  padding-left: 10rpx;
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.medication-card {
+  margin-bottom: 24rpx !important;
+  padding: 24rpx !important;
+  border-radius: 40rpx !important;
+}
+
+.card-main {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.medication-icon-box {
+  width: 100rpx;
+  height: 100rpx;
+  background: var(--primary-light);
+  border-radius: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 24rpx;
+}
+
+.medication-icon-box.gray {
+  background: var(--bg-color);
+}
+
+.med-emoji {
+  font-size: 50rpx;
+}
+
+.med-info {
+  flex: 1;
+}
+
+.med-name-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8rpx;
+}
+
+.med-name {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-right: 16rpx;
+}
+
+.med-tag {
+  font-size: 20rpx;
+  color: var(--primary-color);
+  background: var(--primary-light);
+  padding: 4rpx 12rpx;
+  border-radius: 6rpx;
+  font-weight: 600;
+}
+
+.med-dosage {
+  font-size: 26rpx;
+  color: var(--text-sec);
+  display: block;
+}
+
+.med-desc {
+  font-size: 22rpx;
+  color: var(--text-light);
+  margin-top: 4rpx;
+  display: block;
+}
+
+.expiry-warning {
+  display: flex;
+  align-items: center;
+  margin-top: 10rpx;
+  padding: 8rpx 16rpx;
+  border-radius: 12rpx;
+}
+
+.expiry-warning.error {
+  background: #FFF5F5;
+}
+
+.expiry-warning.warning {
+  background: #FFFBEB;
+}
+
+.warning-icon {
+  font-size: 24rpx;
+  margin-right: 8rpx;
+}
+
+.expiry-warning.error .warning-text {
+  color: #E53E3E;
+}
+
+.expiry-warning.warning .warning-text {
+  color: #D97706;
+}
+
+.warning-text {
+  font-size: 22rpx;
+  font-weight: 600;
+}
+
+.expiry-info {
+  margin-top: 10rpx;
+}
+
+.expiry-text {
+  font-size: 22rpx;
+  color: var(--text-light);
+}
+
+.card-footer {
+  border-top: 1rpx solid var(--border-color);
+  padding-top: 24rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reminder-times {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.clock-icon {
+  font-size: 24rpx;
+  margin-right: 4rpx;
+  opacity: 0.5;
+}
+
+.time-tag {
+  font-size: 24rpx;
+  color: var(--primary-color);
+  background: rgba(91, 143, 249, 0.1);
+  padding: 4rpx 16rpx;
+  border-radius: 8rpx;
+  font-weight: 600;
+}
+
+.sync-badge {
+  font-size: 20rpx;
+  color: #07c160;
+  background: rgba(7, 193, 96, 0.1);
+  padding: 4rpx 12rpx;
+  border-radius: 6rpx;
+  margin-left: 10rpx;
+}
+
+.action-btn {
+  font-size: 24rpx;
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+/* 空状态 */
+.empty-state {
+  text-align: center;
+  padding: 60rpx 0;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+  opacity: 0.5;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: var(--text-light);
+  display: block;
+  margin-bottom: 40rpx;
+}
+
+.empty-add-btn {
+  width: 300rpx !important;
+}
+
+/* 历史记录 */
+.historical {
+  margin-top: 40rpx;
+}
+
+.historical-card {
+  opacity: 0.7;
+}
+
+.restore-btn {
+  font-size: 24rpx;
+  color: var(--text-sec);
+  border: 1rpx solid var(--border-color);
+  padding: 8rpx 20rpx;
+  border-radius: 30rpx;
+}

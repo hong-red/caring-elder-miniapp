@@ -1,0 +1,96 @@
+<view class="login-container {{settings.bigFont ? 'big-font' : ''}}">
+  <navigation-bar title="登录" back="{{false}}" background="transparent"></navigation-bar>
+  
+  <scroll-view class="scrollarea" scroll-y>
+    <view class="login-header" style="width: 670rpx; display: flex; box-sizing: border-box; height: 389rpx">
+      <view class="brand-logo">
+        <text class="logo-emoji">🌿</text>
+      </view>
+      <view class="brand-info">
+        <text class="brand-name">智享养老</text>
+        <text class="brand-slogan">科技守护，温暖相伴</text>
+      </view>
+    </view>
+    
+    <view class="login-content" style="width: 670rpx; height: 1404rpx; display: block; box-sizing: border-box">
+      <view class="role-tabs">
+        <view class="role-tab {{loginType === 'elder' ? 'active' : ''}}" bindtap="selectLoginType" data-type="elder">
+          <text class="role-icon">👴</text>
+          <text class="role-label">长辈模式</text>
+          <view class="tab-indicator"></view>
+        </view>
+        <view class="role-tab {{loginType === 'child' ? 'active' : ''}}" bindtap="selectLoginType" data-type="child" style="height: 164rpx; display: flex; box-sizing: border-box; left: 0rpx; top: 0rpx">
+          <text class="role-icon">📱</text>
+          <text class="role-label">子女模式</text>
+          <view class="tab-indicator"></view>
+        </view>
+      </view>
+  
+      <view class="form-section card" style="width: 629rpx; height: 968rpx; display: block; box-sizing: border-box">
+        <view class="input-group">
+          <text class="input-label">账号</text>
+          <view class="input-wrap shadow-subtle">
+            <text class="field-icon">👤</text>
+            <input class="input-field" placeholder="请输入手机号/账号" bindinput="onAccountInput" value="{{account}}" placeholder-class="input-placeholder" />
+          </view>
+        </view>
+      
+      <view class="input-group">
+        <text class="input-label">密码</text>
+        <view class="input-wrap shadow-subtle">
+          <text class="field-icon">🔒</text>
+          <input class="input-field" placeholder="请输入登录密码" password="{{!showPassword}}" bindinput="onPasswordInput" value="{{password}}" placeholder-class="input-placeholder" />
+          <view class="password-toggle" bindtap="togglePassword">
+            <text class="toggle-icon">{{showPassword ? '👁️' : '👁️‍🗨️'}}</text>
+          </view>
+        </view>
+      </view>
+      
+      <view class="form-actions">
+        <text class="action-link" bindtap="onForgotPassword">忘记密码？</text>
+      </view>
+      
+      <view class="login-btn-group">
+        <button class="btn btn-primary login-btn" bindtap="onLogin">登 录</button>
+        <button class="btn btn-outline register-btn" bindtap="onRegister">新用户注册</button>
+        
+        <view class="divider">
+          <view class="line"></view>
+          <text class="divider-text">微信快捷登录</text>
+          <view class="line"></view>
+        </view>
+
+        <button class="btn btn-wechat" bindtap="onWechatLogin">
+          <text class="wechat-icon">💬</text>
+          <text>微信一键登录</text>
+        </button>
+      </view>
+    </view>
+    
+    <view class="login-footer">
+      <view class="register-prompt" style="width: 670rpx; display: flex; box-sizing: border-box">
+        <text>还没有账号？</text>
+        <text class="link" bindtap="onRegister">立即注册</text>
+      </view>
+      <text class="protocol">登录即代表同意 <text class="link" bindtap="navigateToAgreement">《用户协议》</text> 和 <text class="link" bindtap="navigateToPrivacy">《隐私政策》</text></text>
+    </view>
+  </view>
+</scroll-view>
+
+  <!-- 模拟验证码弹窗 -->
+  <view class="modal-mask" wx:if="{{showVerifyCodeModal}}" bindtap="hideVerifyCodeModal">
+    <view class="modal-content" catchtap="stopBubble">
+      <view class="modal-header">
+        <text class="modal-title">验证码已发送</text>
+      </view>
+      <view class="modal-body">
+        <text>模拟验证码：</text>
+        <text class="verify-code-text">{{simulatedVerifyCode}}</text>
+        <text>\n请使用此验证码进行测试</text>
+      </view>
+      <view class="modal-footer">
+        <view class="modal-btn modal-btn-confirm" bindtap="hideVerifyCodeModal">我知道了</view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,59 @@
+/* 
+此文件为开发者工具生成，生成时间: 2026/1/26下午8:00:18
+使用方法：
+在 app.wxss 文件末尾引入样式
+```
+@import "./app-wxa-auto-dark.wxss";
+```
+ */
+
+@media (prefers-color-scheme: dark) {
+    page {
+        --primary-color: rgb(39, 107, 208);
+        --primary-light: rgb(21, 25, 32);
+        --secondary-color: rgb(0, 73, 35);
+        --accent-color: rgb(89, 51, 0);
+        --success-color: rgb(0, 99, 0);
+        --warning-color: rgb(107, 51, 0);
+        --danger-color: rgb(208, 19, 45);
+        --bg-color: rgb(22, 22, 24);
+        --card-bg: rgb(17, 17, 17);
+        --text-main: rgb(226, 226, 226);
+        --text-sec: rgb(163, 163, 163);
+        --text-light: rgb(111, 111, 111);
+        --border-color: rgb(28, 28, 28);
+    }
+
+    .btn-primary {
+        background: rgb(0, 0, 0);
+        color: rgb(17, 17, 17);
+    }
+
+    .btn-danger {
+        background: rgb(32, 23, 22);
+    }
+
+    .custom-nav-bar {
+        background: rgba(17, 17, 17, 0.85);
+    }
+
+    .nav-back {
+        background: rgba(17, 17, 17, 0.9);
+    }
+
+    .float-read-btn {
+        border: rgb(0, 0, 0);
+    }
+
+    @keyframes ripple {
+        0% {
+            transform: scale(1);
+            opacity: 0.3;
+        }
+
+        100% {
+            transform: scale(1.5);
+            opacity: 0;
+        }
+    }
+}

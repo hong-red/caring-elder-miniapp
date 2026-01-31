@@ -1,0 +1,197 @@
+<!-- pages/ai-chat/ai-chat.wxml -->
+<navigation-bar 
+  back="{{true}}" 
+  color="white" 
+  background="linear-gradient(135deg, #0066FF, #0052CC)"
+>
+  <view slot="center" class="header-title">
+    <view class="main-title-row">
+      <text class="main-title" bindtap="readText" data-text="AI 健康管家">AI 健康管家</text>
+      <text class="title-badge" bindtap="readText" data-text="官方">官方</text>
+    </view>
+    <view class="online-status">
+      <view class="status-dot-blink"></view>
+      <text bindtap="readText" data-text="智能机器人 24h 守护中">智能机器人 24h 守护中</text>
+    </view>
+  </view>
+</navigation-bar>
+
+<view class="health-consult-container {{settings.bigFont ? 'big-font' : ''}} {{settings.highContrast ? 'high-contrast' : ''}}">
+
+  <!-- 导航占位（防止内容被挡） -->
+  <view class="nav-placeholder" style="height: 14rpx; display: block; box-sizing: border-box"></view>
+
+  <!-- 滚动聊天区 -->
+  <scroll-view 
+    class="scrollarea message-list" 
+    scroll-y 
+    scroll-with-animation 
+    scroll-top="{{scrollTop}}" 
+    scroll-into-view="{{scrollIntoView}}" 
+    bindscrolltolower="loadMoreMessages"
+    enable-back-to-top
+   style="height: 1079rpx; display: block; box-sizing: content-box; left: 0rpx; top: 0rpx">
+    <view class="message-wrapper" style="height: 1199rpx; display: flex; box-sizing: border-box">
+
+      <!-- 欢迎引导卡片（仅在完全空聊天时显示） --> 
+      <view class="welcome-section" wx:if="{{messages.length === 0 && !loading}}">
+        <view class="welcome-card card shadow-normal">
+          <view class="welcome-header">
+            <view class="bot-icon-wrap">
+              <view class="bot-text-icon">智</view>
+              <view class="bot-status-ring"></view>
+            </view>
+            <view class="welcome-title-box">
+              <text class="welcome-title">您好，我是小智</text>
+              <text class="welcome-subtitle">您的全能健康生活助手</text>
+            </view>
+          </view>
+
+          <view class="welcome-body">
+            <text class="welcome-desc">您可以问我：</text>
+            <view class="guide-list">
+              <view class="guide-item" bindtap="sendQuickQuestion" data-question="我现在的血压正常吗？">
+                <text class="guide-dot">·</text>
+                <text>分析我的最新健康数据</text>
+                <text class="guide-arrow">></text>
+              </view>
+              <view class="guide-item" bindtap="sendQuickQuestion" data-question="心情不好该怎么调节？">
+                <text class="guide-dot">·</text>
+                <text>寻求心理慰藉与建议</text>
+                <text class="guide-arrow">></text>
+              </view>
+              <view class="guide-item" bindtap="sendQuickQuestion" data-question="适合老年人的运动有哪些？">
+                <text class="guide-dot">·</text>
+                <text>了解生活养生小知识</text>
+                <text class="guide-arrow">></text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- AI 思考动画放消息列表顶部 --> 
+      <view class="ai-thinking" wx:if="{{loading}}">
+        <view class="thinking-bubble">
+          <view class="dot-flashing">
+            <view class="dot"></view>
+            <view class="dot"></view>
+            <view class="dot"></view>
+          </view>
+          <text class="thinking-text">小智正在为您生成健康报告...</text>
+        </view>
+      </view>
+
+      <!-- 消息列表 --> 
+      <block wx:for="{{messages}}" wx:key="id">
+        <view 
+          class="message-item {{item.type === 'user' ? 'user-item' : 'ai-item'}}" 
+          id="msg-{{item.id}}"
+        >
+          <!-- AI 头像 -->
+          <view class="message-avatar ai-avatar" wx:if="{{item.type === 'ai'}}">
+            <view class="avatar-inner">智</view>
+          </view>
+
+          <!-- 消息气泡 + 时间 -->
+          <view class="message-content">
+            <view 
+              class="message-bubble" 
+              bindtap="readMessage" 
+              data-text="{{item.content}}"
+              data-msg-id="{{item.id}}"
+            >
+              <text>{{item.content}}</text>
+            </view>
+            <view class="message-time">{{item.timestamp}}</view>
+          </view>
+
+          <!-- 用户头像 -->
+          <view class="message-avatar user-avatar" wx:if="{{item.type === 'user'}}">
+            <view class="avatar-inner">我</view>
+          </view>
+        </view>
+      </block>
+
+      <!-- 底部锚点（用于自动滚到底部） -->
+      <view id="bottom-anchor"></view>
+    </view>
+  </scroll-view>
+
+  <!-- 底部固定操作区 -->
+  <view class="bottom-area">
+
+    <!-- 快捷问题横向滚动 -->
+    <view class="quick-questions-panel" wx:if="{{quickQuestions.length > 0}}" style="height: 193rpx; display: block; box-sizing: border-box">
+      <view class="quick-header">
+        <text class="quick-title">猜您想问</text>
+        <view class="quick-line"></view>
+      </view>
+      <scroll-view class="quick-questions" scroll-x show-scrollbar="{{false}}" style="height: 66rpx; display: block; box-sizing: border-box">
+        <view class="quick-question-item" 
+          wx:for="{{quickQuestions}}" 
+          wx:key="index" 
+          bindtap="sendQuickQuestion" 
+          data-question="{{item}}"
+         style="height: 60rpx; display: inline-block; box-sizing: border-box">
+          <text class="quick-text">{{item}}</text>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- 健康数据折叠条 --> 
+    <view 
+      class="health-summary-bar compact {{showHealthData ? 'expanded' : ''}}" 
+      wx:if="{{currentHealthData}}" 
+      bindtap="toggleHealthData" 
+    > 
+      <view class="summary-header"> 
+        <text class="summary-icon">📊</text> 
+        <text class="summary-title">最新健康记录（点击展开）</text> 
+        <text class="toggle-icon">{{showHealthData ? '收起' : '展开'}}</text> 
+      </view> 
+
+      <view class="health-data-grid" wx:if="{{showHealthData}}"> 
+        <view class="data-card"> 
+          <text class="data-label">脉搏</text> 
+          <text class="data-val">{{currentHealthData.pulse || '--'}}<text class="data-unit">bpm</text></text> 
+        </view> 
+        <view class="data-card"> 
+          <text class="data-label">心率</text> 
+          <text class="data-val">{{currentHealthData.heartRate || '--'}}<text class="data-unit">bpm</text></text> 
+        </view> 
+        <view class="data-card"> 
+          <text class="data-label">血压</text> 
+          <text class="data-val">{{currentHealthData.systolic || '--'}}/{{currentHealthData.diastolic || '--'}}<text class="data-unit">mmHg</text></text> 
+        </view> 
+      </view> 
+    </view>
+
+    <!-- 输入区 -->
+    <view class="input-panel-container">
+      <view class="input-panel">
+        <view class="input-content-wrap">
+          <input 
+            class="input-field" 
+            placeholder="点击输入内容..." 
+            value="{{inputMessage}}" 
+            bindinput="onInputChange" 
+            confirm-type="send" 
+            bindconfirm="sendMessage" 
+            placeholder-class="input-placeholder"
+          />
+        </view>
+        <button 
+          class="send-btn {{inputMessage.trim() ? 'active' : ''}}" 
+          bindtap="sendMessage"
+          disabled="{{!inputMessage.trim()}}"
+        >
+          发送
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 悬浮朗读按钮（可拖动） -->
+  
+</view>

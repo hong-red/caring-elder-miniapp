@@ -1,0 +1,74 @@
+<navigation-bar title="关于我们" back="{{true}}"></navigation-bar>
+<scroll-view class="scrollarea" scroll-y>
+  <view class="nav-placeholder" style="height: {{navHeight}}px;"></view>
+  <view class="about-us-container {{settings.bigFont ? 'big-font' : ''}}">
+    <view class="about-section card">
+      <view class="app-info">
+        <view class="app-logo">
+          <text class="logo-emoji" style="width: 114rpx; height: 124rpx; display: block; box-sizing: border-box">🌿</text>
+        </view>
+        <view class="app-meta">
+          <text class="app-name" bindtap="readText" data-text="智享养老">智享养老</text>
+          <text class="app-slogan" bindtap="readText" data-text="科技守护，温暖相伴">科技守护，温暖相伴</text>
+          <text class="app-version" bindtap="readText" data-text="当前版本 v1.0.4">当前版本 v1.0.4</text>
+        </view>
+      </view>
+      
+      <view class="about-content">
+        <text class="content-title" bindtap="readText" data-text="关于智享养老">关于智享养老</text>
+        <text class="content-text" bindtap="readText" data-text="智享养老是一款专为长辈设计的智慧养老健康守护平台。我们致力于通过科技手段，为长辈提供安全、健康、便捷的居家养老生活，让关爱零距离。">“智享养老”是一款专为长辈设计的智慧养老健康守护平台。我们致力于通过科技手段，为长辈提供安全、健康、便捷的居家养老生活，让关爱零距离。</text>
+        
+        <text class="content-title" bindtap="readText" data-text="核心功能">核心功能</text>
+        <view class="feature-list">
+          <view class="feature-item">
+              <text class="feature-icon">📞</text>
+              <view class="feature-info">
+                <text class="feature-name" bindtap="readText" data-text="一键呼叫">一键呼叫</text>
+                <text class="feature-desc" bindtap="readText" data-text="长按快速联系家人，同步位置与动态">长按快速联系家人，同步位置与动态</text>
+              </view>
+            </view>
+          <view class="feature-item">
+            <text class="feature-icon">❤️</text>
+            <view class="feature-detail">
+              <text class="feature-name" bindtap="readText" data-text="健康管理">健康管理</text>
+              <text class="feature-desc" bindtap="readText" data-text="记录心率、血压，异常情况自动预警">记录心率、血压，异常情况自动预警</text>
+            </view>
+          </view>
+          <view class="feature-item">
+            <text class="feature-icon">👨‍👩‍👧‍👦</text>
+            <view class="feature-detail">
+              <text class="feature-name" bindtap="readText" data-text="亲情绑定">亲情绑定</text>
+              <text class="feature-desc" bindtap="readText" data-text="多端数据同步，家属随时掌握健康动态">多端数据同步，家属随时掌握健康动态</text>
+            </view>
+          </view>
+          <view class="feature-item">
+            <text class="feature-icon">🎙️</text>
+            <view class="feature-detail">
+              <text class="feature-name" bindtap="readText" data-text="长辈适配">长辈适配</text>
+              <text class="feature-desc" bindtap="readText" data-text="超大字体与语音播报，使用无障碍">超大字体与语音播报，使用无障碍</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      
+      <view class="contact-section">
+        <text class="content-title" bindtap="readText" data-text="联系我们">联系我们</text>
+        <view class="contact-item">
+          <text class="contact-label" bindtap="readText" data-text="联系邮箱：">联系邮箱：</text>
+          <text class="contact-value" bindtap="makePhoneCall">1850425474@qq.com</text>
+        </view>
+        <view class="contact-item">
+          <text class="contact-label" bindtap="readText" data-text="地址：">地址：</text>
+          <text class="contact-value" bindtap="readText" data-text="北京市印刷学院">北京市印刷学院</text>
+        </view>
+      </view>
+      
+      <view class="agreement-section">
+        <text class="agreement-item" bindtap="navigateToAgreement">《用户协议》</text>
+        <text class="agreement-item" bindtap="navigateToPrivacy">《隐私政策》</text>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+
+

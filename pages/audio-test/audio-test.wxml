@@ -1,0 +1,33 @@
+<navigation-bar title="音频极限测试" back="{{true}}"></navigation-bar>
+
+<view class="container">
+  <view class="test-card">
+    <view class="status {{isPlaying ? 'active' : ''}}">
+      {{statusText}}
+    </view>
+    
+    <view class="btn-group">
+      <view class="section-title">1. 标准音频测试 (排除环境问题)</view>
+      <button class="test-btn" bindtap="playStandard">播放标准 MP3 (马叫声)</button>
+      <button class="test-btn" bindtap="playTencent">播放腾讯云示例</button>
+      
+      <view class="section-title">2. TTS 接口测试 (检查解码)</view>
+      <button class="test-btn tts" bindtap="playBaiduTTS">测试百度 TTS (下载后播放)</button>
+      <button class="test-btn tts" bindtap="playYoudaoTTS">测试有道 TTS (备用源)</button>
+      
+      <button class="stop-btn" bindtap="stopAll">全部停止</button>
+    </view>
+
+    <view class="log-box">
+      <view class="log-title">运行日志:</view>
+      <scroll-view scroll-y class="log-content">
+        <view wx:for="{{logs}}" wx:key="index" class="log-item">{{item}}</view>
+      </scroll-view>
+    </view>
+  </view>
+  
+  <view class="footer">
+    如果“标准音频”也听不到，说明是模拟器驱动问题。
+    如果只有“TTS”报错，说明是接口编码兼容性问题。
+  </view>
+</view>

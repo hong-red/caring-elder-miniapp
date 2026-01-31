@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "生活关注事项",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "navigation-bar": "/components/navigation-bar/navigation-bar"
+  }
+}

@@ -1,0 +1,377 @@
+.scrollarea {
+  flex: 1;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.scrollarea::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
+.check-in-container {
+  min-height: 100vh;
+  background-color: var(--bg-color);
+}
+
+/* 头部样式 */
+.page-header-alt {
+  padding: 10rpx 40rpx;
+  background: #FFFFFF;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom-left-radius: 40rpx;
+  border-bottom-right-radius: 40rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.02);
+}
+
+.title-section {
+  flex: 1;
+}
+
+.page-title {
+  font-size: 44rpx;
+  font-weight: 800;
+  color: var(--text-main);
+  display: block;
+}
+
+.page-subtitle {
+  font-size: 24rpx;
+  color: var(--text-light);
+  margin-top: 8rpx;
+  display: block;
+}
+
+.date-badge {
+  background: var(--primary-light);
+  padding: 10rpx 24rpx;
+  border-radius: 30rpx;
+}
+
+.date-text {
+  font-size: 22rpx;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.check-in-main {
+  padding: 40rpx;
+}
+
+/* 打卡卡片 */
+.check-in-hero {
+  padding: 0 !important;
+  overflow: hidden;
+  margin-bottom: 60rpx !important;
+}
+
+.hero-content {
+  padding: 60rpx 40rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--bg-color) 100%);
+}
+
+.status-visual {
+  position: relative;
+  width: 180rpx;
+  height: 180rpx;
+  margin-bottom: 40rpx;
+}
+
+.visual-circle {
+  width: 100%;
+  height: 100%;
+  background: #FFFFFF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-normal);
+  position: relative;
+  z-index: 2;
+}
+
+.visual-icon {
+  font-size: 80rpx;
+}
+
+.pulse-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--primary-color);
+  opacity: 0.2;
+  animation: pulse-animation 2s infinite;
+  z-index: 1;
+}
+
+@keyframes pulse-animation {
+  0% { transform: scale(1); opacity: 0.3; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+.status-title {
+  font-size: 36rpx;
+  font-weight: 800;
+  color: var(--text-main);
+  display: block;
+}
+
+.status-desc {
+  font-size: 24rpx;
+  color: var(--text-sec);
+  margin-top: 12rpx;
+  margin-bottom: 40rpx;
+  display: block;
+}
+
+.check-in-btn {
+  width: 360rpx !important;
+  height: 100rpx;
+  border-radius: 50rpx;
+  font-size: 32rpx;
+  font-weight: 700;
+  box-shadow: 0 10rpx 30rpx rgba(0, 102, 255, 0.2);
+}
+
+.btn-disabled {
+  background: var(--text-light) !important;
+  box-shadow: none !important;
+  opacity: 0.6;
+}
+
+/* 安全守护提醒 */
+.safety-notice {
+  margin: 20rpx 40rpx 40rpx;
+  padding: 24rpx;
+  background: #FFFBE6;
+  border: 2rpx solid #FFE58F;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: flex-start;
+}
+
+.notice-icon {
+  font-size: 36rpx;
+  margin-right: 16rpx;
+  margin-top: 4rpx;
+}
+
+.notice-content {
+  flex: 1;
+}
+
+.notice-title {
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #856404;
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+.notice-desc {
+  font-size: 22rpx;
+  color: #856404;
+  line-height: 1.4;
+  display: block;
+}
+
+/* 大字模式适配 */
+.big-font .notice-title { font-size: 34rpx !important; }
+.big-font .notice-desc { font-size: 30rpx !important; }
+
+.hero-stats {
+  display: flex;
+  border-top: 1rpx solid var(--border-color);
+  padding: 30rpx 0;
+  background: #FFFFFF;
+}
+
+.stat-box {
+  flex: 1;
+  text-align: center;
+}
+
+.stat-val {
+  font-size: 40rpx;
+  font-weight: 800;
+  color: var(--text-main);
+  display: block;
+}
+
+.stat-tag {
+  font-size: 22rpx;
+  color: var(--text-light);
+  margin-top: 4rpx;
+  display: block;
+}
+
+.stat-divider {
+  width: 1rpx;
+  height: 60rpx;
+  background: var(--border-color);
+  align-self: center;
+}
+
+/* 历史列表 */
+.history-section {
+  margin-top: 40rpx;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+/* 历史卡片 */
+
+.history-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx 40rpx !important;
+  margin-bottom: 20rpx !important;
+}
+
+.history-left {
+  display: flex;
+  align-items: center;
+}
+
+.history-dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: var(--text-light);
+  margin-right: 24rpx;
+  opacity: 0.3;
+}
+
+.history-dot.dot-active {
+  background: var(--primary-color);
+  opacity: 1;
+  box-shadow: 0 0 10rpx var(--primary-color);
+}
+
+.history-date {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--text-main);
+  display: block;
+}
+
+.history-time {
+  font-size: 22rpx;
+  color: var(--text-light);
+  margin-top: 4rpx;
+  display: block;
+}
+
+.status-label {
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.text-primary { color: var(--primary-color); }
+.text-light { color: var(--text-light); }
+
+/* 空状态 */
+.empty-history {
+  padding: 60rpx 40rpx !important;
+  text-align: center;
+}
+
+.empty-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.empty-icon {
+  font-size: 60rpx;
+  margin-bottom: 20rpx;
+  opacity: 0.3;
+}
+
+.empty-tip {
+  font-size: 26rpx;
+  color: var(--text-light);
+}
+
+/* 大字模式适配 */
+.big-font .page-title {
+  font-size: 54rpx !important;
+}
+
+.big-font .page-subtitle {
+  font-size: 32rpx !important;
+}
+
+.big-font .date-text {
+  font-size: 30rpx !important;
+}
+
+.big-font .status-title {
+  font-size: 48rpx !important;
+}
+
+.big-font .status-desc {
+  font-size: 34rpx !important;
+  margin-bottom: 50rpx !important;
+}
+
+.big-font .check-in-btn {
+  width: 440rpx !important;
+  height: 120rpx !important;
+  font-size: 44rpx !important;
+  border-radius: 60rpx !important;
+}
+
+.big-font .stat-val {
+  font-size: 50rpx !important;
+}
+
+.big-font .stat-tag {
+  font-size: 30rpx !important;
+}
+
+.big-font .section-title {
+  font-size: 44rpx !important;
+}
+
+.big-font .calendar-btn {
+  font-size: 32rpx !important;
+}
+
+.big-font .history-date {
+  font-size: 38rpx !important;
+}
+
+.big-font .history-time {
+  font-size: 30rpx !important;
+}
+
+.big-font .status-label {
+  font-size: 34rpx !important;
+}
+
+.big-font .empty-tip {
+  font-size: 34rpx !important;
+}

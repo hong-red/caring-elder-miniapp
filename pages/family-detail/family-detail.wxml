@@ -1,0 +1,43 @@
+<navigation-bar title="联系人详情" back="{{true}}"></navigation-bar>
+<scroll-view class="scrollarea" scroll-y>
+  <view class="nav-placeholder" style="height: {{navHeight}}px;"></view>
+  <view class="container {{settings.bigFont ? 'big-font' : ''}}">
+    <view class="content">
+    <view class="family-info-card card" wx:if="{{familyMember}}">
+      <view class="family-avatar-large">
+        <text class="avatar-emoji-large">{{familyMember.relation === '子女' ? '👨' : (familyMember.relation === '配偶' ? '👵' : (familyMember.relation === '朋友' ? '😊' : '👤'))}}</text>
+      </view>
+      
+      <view class="family-basic-info">
+        <text class="family-name-large">{{familyMember.name}}</text>
+        <text class="family-relationship-large">{{familyMember.relation}}</text>
+      </view>
+      
+      <view class="family-detail-info">
+        <view class="info-row" wx:if="{{familyMember.phone}}">
+          <text class="info-label">手机号</text>
+          <text class="info-value">{{familyMember.phone}}</text>
+        </view>
+        <view class="info-row" wx:if="{{familyMember.birthday}}">
+          <text class="info-label">出生日期</text>
+          <text class="info-value">{{familyMember.birthday}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label">联系人ID</text>
+          <text class="info-value">{{familyMember.id}}</text>
+        </view>
+      </view>
+      
+      <view class="family-actions">
+        <button class="btn btn-secondary" bindtap="editFamilyInfo">编辑信息</button>
+        <button class="btn btn-danger" bindtap="unbindFamily">删除联系人</button>
+      </view>
+    </view>
+    
+    <view class="empty-state" wx:else>
+      <text class="empty-icon">👥</text>
+      <text class="empty-tip">未找到联系人信息</text>
+    </view>
+    </view>
+  </view>
+</scroll-view>

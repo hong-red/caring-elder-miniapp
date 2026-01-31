@@ -1,0 +1,43 @@
+<view class="personal-info-container {{settings.bigFont ? 'big-font' : ''}}">
+  <navigation-bar title="基本信息" back="{{true}}"></navigation-bar>
+  
+  <scroll-view class="scrollarea" scroll-y style="height: 1316rpx; display: block; box-sizing: border-box">
+    <view class="nav-placeholder" style="height: 116rpx; display: block; box-sizing: border-box"></view>
+    
+    <view class="content">
+    <view class="info-section card">
+      <view class="info-item" bindtap="readText" data-text="账号">
+        <text class="info-label">账号</text>
+        <text class="info-value">{{userInfo.account || '----'}}</text>
+      </view>
+      <view class="info-item" bindtap="readText" data-text="昵称">
+        <text class="info-label">昵称</text>
+        <text class="info-value">{{userInfo.nickname || '未设置'}}</text>
+      </view>
+      <view class="info-item" bindtap="readText" data-text="手机号">
+        <text class="info-label">手机号</text>
+        <text class="info-value">{{userInfo.phone || '未绑定'}}</text>
+      </view>
+      <view class="info-item" bindtap="readText" data-text="登录类型">
+        <text class="info-label">登录类型</text>
+        <text class="info-value">{{userInfo.isWechat ? '微信登录' : '账号密码登录'}}</text>
+      </view>
+      <view class="info-item" bindtap="readText" data-text="当前身份">
+        <text class="info-label">当前身份</text>
+        <text class="info-value">{{userInfo.role === 'elder' ? '长辈模式' : '亲友模式'}}</text>
+      </view>
+      <view class="info-item" bindtap="readText" data-text="注册时间">
+        <text class="info-label">注册时间</text>
+        <text class="info-value">{{userInfo.createdAt ? formatTime(userInfo.createdAt) : '----'}}</text>
+      </view>
+    </view>
+    
+    <view class="action-section">
+      <button class="btn btn-primary" bindtap="editProfile">编辑个人资料</button>
+    </view>
+    <view class="safe-area-inset-bottom"></view>
+  </view>
+</scroll-view>
+
+
+</view>

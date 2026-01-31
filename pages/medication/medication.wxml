@@ -1,0 +1,113 @@
+<navigation-bar title="用药提醒" back="{{false}}"></navigation-bar>
+
+<scroll-view class="scrollarea" scroll-y>
+  <view class="nav-placeholder" style="height: 110rpx; display: block; box-sizing: border-box"></view>
+  <view class="medication-container {{settings.bigFont ? 'big-font' : ''}}">
+    <view class="header-section">
+  <view class="title-section">
+    <text class="page-title" bindtap="readText" data-text="我的药箱">我的药箱</text>
+    <text class="page-subtitle" bindtap="readText" data-text="共 {{medications.length}} 种在服药品">共 {{medications.length}} 种在服药品</text>
+  </view>
+    <button class="btn btn-primary btn-circle" bindtap="addMedication" hover-class="btn-hover" style="position: relative; left: 0rpx; top: -2rpx; height: 160rpx; display: flex; box-sizing: border-box">
+      <text class="add-icon">+</text>
+    </button>
+  </view>
+  
+  <!-- 今日用药进度 -->
+  <view class="today-progress card" wx:if="{{medications.length > 0}}">
+    <view class="progress-header">
+      <text class="progress-title" bindtap="readText" data-text="今日用药进度">今日用药进度</text>
+      <text class="progress-percent" bindtap="readText" data-text="{{progress}}%"> {{progress}}%</text>
+    </view>
+    <view class="progress-bar-bg">
+      <view class="progress-bar-active" style="width: {{progress}}%"></view>
+    </view>
+    <view class="progress-footer">
+      <text class="progress-tip" bindtap="readText" data-text="今日还剩 {{remainingCount}} 次用药，记得按时服用哦">今日还剩 {{remainingCount}} 次用药，记得按时服用哦</text>
+    </view>
+  </view>
+
+  <!-- 用药列表 -->
+  <view class="medication-section">
+    <view class="section-header">
+      <text class="section-title" bindtap="readText" data-text="正在服用">正在服用</text>
+    </view>
+
+    <view class="medication-list">
+      <view class="empty-state" wx:if="{{medications.length === 0}}">
+        <view class="empty-icon">💊</view>
+        <text class="empty-text">您的药箱空空如也</text>
+        <button class="btn btn-primary empty-add-btn" bindtap="addMedication">立即添加药品</button>
+      </view>
+      
+      <view class="medication-card card" wx:for="{{medications}}" wx:key="id">
+        <view class="card-main">
+          <view class="medication-icon-box">
+            <text class="med-emoji">💊</text>
+          </view>
+          <view class="med-info">
+            <view class="med-name-row">
+              <text class="med-name">{{item.name}}</text>
+              <view class="med-tag">{{item.status || '服用中'}}</view>
+            </view>
+            <text class="med-dosage">{{item.dosage || '每日 3 次，每次 1 片'}}</text>
+            <text class="med-desc">{{item.desc || '餐后半小时服用'}}</text>
+            <view class="expiry-warning error" wx:if="{{item.isExpired}}">
+              <text class="warning-icon">⚠️</text>
+              <text class="warning-text">该药品已过期</text>
+            </view>
+            <view class="expiry-warning warning" wx:elif="{{item.isExpiringSoon}}">
+              <text class="warning-icon">⏳</text>
+              <text class="warning-text">即将过期（剩 {{item.daysLeft}} 天）</text>
+            </view>
+            <view class="expiry-info" wx:elif="{{item.expiryDate}}">
+              <text class="expiry-text">有效期至: {{item.expiryDate}}</text>
+            </view>
+          </view>
+        </view>
+        
+        <view class="card-footer">
+          <view class="reminder-times">
+            <text class="clock-icon">⏰</text>
+            <text class="time-tag">{{item.remindTime || '08:00'}}</text>
+            <text class="sync-badge" wx:if="{{item.syncToCalendar}}">已同步闹钟</text>
+          </view>
+          <view class="card-actions">
+            <view class="action-btn edit" bindtap="editMedication" data-id="{{item.id}}">编辑</view>
+            <view class="action-btn delete" bindtap="deleteMedication" data-id="{{item.id}}">删除</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 过期药品/历史记录 (示例) -->
+  <view class="medication-section historical" wx:if="{{historicalMedications.length > 0}}">
+    <view class="section-header">
+      <text class="section-title">历史记录</text>
+    </view>
+    <view class="medication-card card historical-card" wx:for="{{historicalMedications}}" wx:key="id">
+      <view class="card-main">
+        <view class="medication-icon-box gray">
+          <text class="med-emoji">📦</text>
+        </view>
+        <view class="med-info">
+          <text class="med-name">{{item.name}}</text>
+          <text class="med-dosage">已停药</text>
+        </view>
+        <button class="btn btn-outline btn-sm" bindtap="restoreMedication" data-id="{{item.id}}" hover-class="btn-hover">重新服用</button>
+      </view>
+    </view>
+  </view>
+  
+  <view class="footer-spacer"></view>
+
+  <!-- 悬浮朗读按钮 -->
+  <movable-area class="float-read-area" wx:if="{{settings.realtimeReading}}">
+    <movable-view class="float-read-btn" direction="all" x="280" y="450" bindtap="readPageContent">
+      <view class="read-ripple"></view>
+      <text class="read-icon">📢</text>
+    </movable-view>
+  </movable-area>
+</view>
+</scroll-view>

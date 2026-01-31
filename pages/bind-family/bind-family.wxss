@@ -1,0 +1,253 @@
+.scrollarea {
+  flex: 1;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.scrollarea::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
+/* 自定义导航栏 */
+.custom-nav-bar {
+  display: none;
+}
+
+.nav-back {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-icon {
+  font-size: 36rpx;
+  color: #333;
+}
+
+.nav-title {
+  flex: 1;
+  text-align: center;
+}
+
+.page-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.nav-right {
+  width: 60rpx;
+}
+
+/* 大字模式适配 */
+.big-font .page-title { font-size: 54rpx !important; }
+.big-font .section-title { font-size: 44rpx !important; }
+.big-font .form-label { font-size: 38rpx !important; }
+.big-font .form-input { font-size: 38rpx !important; height: 80rpx !important; }
+.big-font .picker-content { font-size: 38rpx !important; height: 80rpx !important; display: flex; align-items: center; }
+.big-font .btn { font-size: 40rpx !important; height: 110rpx !important; border-radius: 55rpx !important; }
+.big-font .tips-title { font-size: 44rpx !important; }
+.big-font .tips-content { font-size: 36rpx !important; }
+
+.bind-family-container {
+  min-height: 100vh;
+  background-color: var(--bg-color);
+}
+
+.content {
+  padding: 0rpx 40rpx 0;
+}
+
+.bind-form {
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: var(--shadow-normal);
+}
+
+.form-section {
+  margin-bottom: 40rpx;
+}
+
+.form-section:last-child {
+  margin-bottom: 0;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0;
+}
+
+.import-btn {
+  display: flex;
+  align-items: center;
+  padding: 12rpx 20rpx;
+  background: var(--primary-light);
+  border-radius: 30rpx;
+  transition: opacity 0.2s;
+}
+
+.import-btn:active {
+  opacity: 0.7;
+}
+
+.import-icon {
+  font-size: 28rpx;
+  margin-right: 8rpx;
+}
+
+.import-text {
+  font-size: 24rpx;
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.big-font .import-text { font-size: 32rpx !important; }
+.big-font .import-icon { font-size: 36rpx !important; }
+.big-font .import-btn { padding: 16rpx 30rpx !important; border-radius: 40rpx !important; }
+
+.form-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+  padding-bottom: 30rpx;
+  border-bottom: 1rpx solid var(--border-color);
+}
+
+.form-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.tip-section {
+  padding: 20rpx;
+  background-color: #fffbe6;
+  border-radius: 12rpx;
+  margin-top: 20rpx;
+  border: 1rpx solid #ffe58f;
+}
+
+.tip-text {
+  font-size: 24rpx;
+  color: #856404;
+  line-height: 1.5;
+}
+
+.form-label {
+  font-size: 28rpx;
+  color: var(--text-main);
+  width: 180rpx;
+  font-weight: 500;
+}
+
+.form-label.required::before {
+  content: '*';
+  color: #FF4D4F;
+  margin-right: 8rpx;
+}
+
+.form-input {
+  flex: 1;
+  font-size: 28rpx;
+  color: var(--text-main);
+  padding: 15rpx 0;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+.form-input::placeholder {
+  color: var(--text-placeholder);
+}
+
+.form-picker {
+  flex: 1;
+  font-size: 28rpx;
+  color: var(--text-main);
+}
+
+.picker-content {
+  padding: 15rpx 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.form-actions {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 40rpx;
+}
+
+.btn {
+  flex: 1;
+  height: 90rpx;
+  border-radius: 16rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  transition: all 0.3s;
+  border: none;
+  outline: none;
+}
+
+.btn-primary {
+  background: var(--primary-color);
+  color: #FFFFFF;
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+.btn-secondary {
+  background: var(--bg-color);
+  color: var(--text-main);
+  border: 2rpx solid var(--border-color);
+}
+
+.btn-secondary:active {
+  background: rgba(91, 143, 249, 0.05);
+}
+
+.tips-card {
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  padding: 30rpx;
+  box-shadow: var(--shadow-normal);
+}
+
+.tips-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 20rpx;
+  display: block;
+}
+
+.tips-content {
+  font-size: 24rpx;
+  color: var(--text-sec);
+  line-height: 40rpx;
+  display: block;
+  margin-bottom: 15rpx;
+}
+
+.tips-content:last-child {
+  margin-bottom: 0;
+}

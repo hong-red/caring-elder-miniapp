@@ -1,0 +1,100 @@
+<navigation-bar title="用户协议" back="{{true}}"></navigation-bar>
+<scroll-view class="scrollarea" scroll-y>
+  <view class="nav-placeholder" style="height: {{navHeight}}px;"></view>
+  <view class="agreement-container {{settings.bigFont ? 'big-font' : ''}}">
+    <view class="agreement-content card">
+      <text class="agreement-title">养老小程序用户协议</text>
+      
+      <text class="section-title">一、总则</text>
+      <view class="section-content">
+        <view class="content-item">1. <text class="bold">协议适用范围</text></view>
+        <view class="content-item">本协议是您与养老小程序（以下简称"本平台"）之间关于使用本平台服务所订立的协议。</view>
+        <view class="content-item">2. <text class="bold">协议接受</text></view>
+        <view class="content-item">您在使用本平台服务前，请仔细阅读并理解本协议。您点击"同意"或使用本平台服务，即表示您已同意本协议的全部内容。</view>
+      </view>
+      
+      <text class="section-title">二、用户权利与义务</text>
+      <view class="section-content">
+        <view class="content-item">1. <text class="bold">用户权利</text></view>
+        <view class="list-item">有权使用本平台提供的各项服务</view>
+        <view class="list-item">有权查看和管理个人信息</view>
+        <view class="list-item">有权设置个性化服务偏好</view>
+        <view class="list-item">有权对服务提出建议和意见</view>
+        <view class="content-item">2. <text class="bold">用户义务</text></view>
+        <view class="list-item">提供真实、准确的个人信息</view>
+        <view class="list-item">妥善保管账号和密码</view>
+        <view class="list-item">遵守国家法律法规和本平台规则</view>
+        <view class="list-item">尊重他人隐私和知识产权</view>
+        <view class="list-item">合理使用平台服务，不得用于违法用途</view>
+      </view>
+      
+      <text class="section-title">三、平台服务内容</text>
+      <view class="section-content">
+        <view class="content-item">1. <text class="bold">健康管理</text>：提供健康数据记录、分析和提醒服务</view>
+        <view class="content-item">2. <text class="bold">用药管理</text>：提供用药提醒、药品管理等服务</view>
+        <view class="content-item">3. <text class="bold">亲情绑定</text>：支持与家人绑定，实现健康数据共享</view>
+        <view class="content-item">4. <text class="bold">生活服务</text>：提供便捷的生活辅助功能</view>
+        <view class="content-item">5. <text class="bold">语音服务</text>：提供语音朗读、语音输入等适老化服务</view>
+      </view>
+      
+      <text class="section-title">四、使用规则</text>
+      <view class="section-content">
+        <view class="content-item">1. <text class="bold">账号使用</text></view>
+        <view class="list-item">每个用户只能拥有一个账号</view>
+        <view class="list-item">不得转让、出租或出借账号</view>
+        <view class="list-item">如发现账号异常，请及时联系客服</view>
+        <view class="content-item">2. <text class="bold">内容规范</text></view>
+        <view class="list-item">不得发布违法、违规、低俗内容</view>
+        <view class="list-item">不得发布虚假信息</view>
+        <view class="list-item">不得侵犯他人合法权益</view>
+        <view class="content-item">3. <text class="bold">服务变更</text></view>
+        <view class="list-item">本平台有权根据业务需要调整服务内容</view>
+        <view class="list-item">服务变更前会通过适当方式通知用户</view>
+      </view>
+      
+      <text class="section-title">五、知识产权</text>
+      <view class="section-content">
+        <view class="content-item">1. 本平台所有内容（包括但不限于文字、图片、音频、视频等）的知识产权归本平台所有</view>
+        <view class="content-item">2. 用户在本平台发布的内容，授权本平台在服务范围内使用</view>
+        <view class="content-item">3. 未经授权，不得复制、修改、传播本平台内容</view>
+      </view>
+      
+      <text class="section-title">六、协议修改与终止</text>
+      <view class="section-content">
+        <view class="content-item">1. <text class="bold">协议修改</text></view>
+        <view class="list-item">本平台有权根据法律法规变化和业务需要修改协议</view>
+        <view class="list-item">修改后的协议将在平台公布，您继续使用服务即表示接受修改</view>
+        <view class="content-item">2. <text class="bold">协议终止</text></view>
+        <view class="list-item">您可以随时停止使用本平台服务</view>
+        <view class="list-item">如您违反本协议，本平台有权终止为您提供服务</view>
+        <view class="list-item">服务终止后，您的账号信息将被妥善保存</view>
+      </view>
+      
+      <text class="section-title">七、法律责任</text>
+      <view class="section-content">
+        <view class="content-item">1. 如您违反本协议，需承担相应的法律责任</view>
+        <view class="content-item">2. 本平台因不可抗力或第三方原因导致服务中断，不承担赔偿责任</view>
+        <view class="content-item">3. 本平台不对用户之间的纠纷承担责任，但会提供必要的协助</view>
+      </view>
+      
+      <text class="section-title">八、争议解决</text>
+      <view class="section-content">
+        <view class="content-item">1. 本协议的解释和执行均适用中华人民共和国法律</view>
+        <view class="content-item">2. 如发生争议，双方应友好协商解决；协商不成的，可向有管辖权的人民法院提起诉讼</view>
+      </view>
+      
+      <text class="section-title">九、其他</text>
+      <view class="section-content">
+        <view class="content-item">1. 本协议未约定事项，按相关法律法规执行</view>
+        <view class="content-item">2. 本平台保留对本协议的最终解释权</view>
+        <view class="content-item">3. 协议生效日期：2026年1月31日</view>
+      </view>
+      
+      <view class="contact-info">
+        <text>如果您对本协议有任何疑问，请联系我们：</text>
+        <text>客服电话：13890129751</text>
+        <text>客服邮箱：1850425474@qq.com</text>
+      </view>
+    </view>
+  </view>
+</scroll-view>

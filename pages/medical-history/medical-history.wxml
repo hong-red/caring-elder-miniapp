@@ -1,0 +1,81 @@
+<navigation-bar title="关注事项" back="{{true}}"></navigation-bar>
+
+<view class="container {{settings.bigFont ? 'big-font' : ''}}">
+  <view class="nav-placeholder" style="height: 102rpx; display: block; box-sizing: border-box"></view>
+  
+  <view class="header">
+    <view class="title-section">
+      <text class="title">我的关注清单</text>
+      <text class="subtitle">记录生活注意事项，协助 AI 提供更贴心的建议</text>
+    </view>
+    <view class="add-btn" bindtap="showAddModal">
+      <text class="add-icon">+</text>
+      <text>添加记录</text>
+    </view>
+  </view>
+
+  <view class="history-list">
+    <block wx:if="{{historyList.length > 0}}">
+      <view class="history-item" wx:for="{{historyList}}" wx:key="id">
+        <view class="item-main">
+          <view class="item-header">
+            <text class="disease-name">{{item.name}}</text>
+            <text class="status-tag {{item.status === '进行中' ? 'active' : 'stable'}}">{{item.status}}</text>
+          </view>
+          <text class="item-time">开始时间：{{item.date || '不详'}}</text>
+          <text class="item-note" wx:if="{{item.note}}">备注：{{item.note}}</text>
+        </view>
+        <view class="item-action" bindtap="deleteItem" data-id="{{item.id}}">
+          <text class="delete-btn">删除</text>
+        </view>
+      </view>
+    </block>
+    <view class="empty-state" wx:else>
+      <text class="empty-icon">📂</text>
+      <text class="empty-text">暂无记录，点击上方按钮添加</text>
+    </view>
+  </view>
+
+  <!-- 建议部分 -->
+  <view class="ai-tip-card card" wx:if="{{historyList.length > 0}}">
+    <view class="tip-header">
+      <text class="tip-icon">🤖</text>
+      <text class="tip-title">AI 温馨提示</text>
+    </view>
+    <text class="tip-content">已为您同步关注事项。在后续的生活陪伴中，AI 将结合您的{{historyNames}}情况，提供针对性的生活建议。</text>
+  </view>
+</view>
+
+<!-- 添加弹窗 -->
+<view class="modal-mask" wx:if="{{showModal}}" bindtap="hideModal"></view>
+<view class="modal-content" wx:if="{{showModal}}">
+  <view class="modal-header">
+    <text>添加生活关注事项</text>
+    <text class="close-btn" bindtap="hideModal">×</text>
+  </view>
+  <view class="form-container">
+    <view class="form-item">
+      <text class="label">事项名称</text>
+      <input class="input" placeholder="如：慢跑锻炼、服用维生素等" bindinput="onInput" data-field="newName" value="{{formData.newName}}" />
+    </view>
+    <view class="form-item">
+      <text class="label">当前状态</text>
+      <radio-group class="radio-group" bindchange="onInput" data-field="newStatus">
+        <label class="radio-label"><radio value="进行中" checked="{{formData.newStatus === '进行中'}}" />进行中</label>
+        <label class="radio-label"><radio value="已稳定" checked="{{formData.newStatus === '已稳定'}}" />已稳定</label>
+      </radio-group>
+    </view>
+    <view class="form-item">
+      <text class="label">关注时间</text>
+      <picker mode="date" bindchange="onInput" data-field="newDate">
+        <view class="picker-value">{{formData.newDate || '请选择日期'}}</view>
+      </picker>
+    </view>
+    <view class="form-item">
+      <text class="label">备注说明</text>
+      <textarea class="textarea" placeholder="记录常用药物或注意事项" bindinput="onInput" data-field="newNote" value="{{formData.newNote}}"></textarea>
+    </view>
+  </view>
+  <button class="submit-btn" bindtap="submitAdd">保存档案</button>
+</view>
+

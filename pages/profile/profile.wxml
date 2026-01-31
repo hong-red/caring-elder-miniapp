@@ -1,0 +1,166 @@
+<navigation-bar title="我的" back="{{false}}"></navigation-bar>
+
+<scroll-view class="scrollarea" scroll-y>
+  <view class="nav-placeholder" style="height: 6rpx; display: block; box-sizing: border-box"></view>
+  <view class="profile-container {{settings.bigFont ? 'big-font' : ''}}">
+    <view class="profile-header-bg"></view>
+    
+    <view class="profile-content">
+    <view class="user-main-card card">
+      <view class="user-top">
+        <view class="avatar-container">
+          <view class="avatar-wrap">
+            <view wx:if="{{!userInfo.avatarUrl}}" class="avatar-placeholder">👤</view>
+            <image wx:else src="{{userInfo.avatarUrl}}" class="avatar-img" mode="aspectFill"></image>
+          </view>
+          <view class="role-badge {{userInfo.role}}">
+            <text>{{userInfo.role === 'elder' ? '👴 长辈模式' : '👨 子女模式'}}</text>
+          </view>
+        </view>
+        <view class="user-meta" bindtap="readText" data-text="{{userInfo.nickname || userInfo.account || '尊敬的用户'}}，账号ID：{{userInfo.account || '----'}}">
+          <text class="user-nickname">{{userInfo.nickname || userInfo.account || '尊敬的用户'}}</text>
+          <text class="user-account">账号ID: {{userInfo.account || '----'}}</text>
+          <text class="user-phone">{{userInfo.phone || '未绑定手机号'}}</text>
+        </view>
+        <view class="settings-btn" bindtap="onProfileItemTap">
+          <text class="settings-icon">⚙️</text>
+        </view>
+      </view>
+      
+      <view class="user-stats-grid">
+        <view class="stat-box" bindtap="readText" data-text="{{healthRecordCount || 0}}条健康记录">
+          <text class="stat-num">{{healthRecordCount || 0}}</text>
+          <text class="stat-label">健康记录</text>
+        </view>
+        <view class="stat-divider"></view>
+        <view class="stat-box" bindtap="readText" data-text="{{familyMembers.length}}位关联家人">
+          <text class="stat-num">{{familyMembers.length}}</text>
+          <text class="stat-label">关联家人</text>
+        </view>
+        <view class="stat-divider"></view>
+        <view class="stat-box" bindtap="readText" data-text="{{medicationCount || 0}}条提醒事项">
+          <text class="stat-num">{{medicationCount || 0}}</text>
+          <text class="stat-label">用药提醒</text>
+        </view>
+      </view>
+      
+
+    </view>
+    
+    <!-- 无障碍设置大卡片区 (新增加，强化视觉) -->
+    <view class="accessibility-section">
+      <view class="section-title-box">
+        <text class="main-title">辅助设置</text>
+        <text class="sub-title">让小程序更好用</text>
+      </view>
+      
+      <view class="accessibility-cards">
+        <view class="access-card {{settings.bigFont ? 'active' : ''}}" bindtap="toggleBigFont">
+          <view class="access-icon-bg" style="background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);">
+            <text class="access-emoji">🔡</text>
+          </view>
+          <view class="access-info">
+            <text class="access-name">大字模式</text>
+            <text class="access-desc">字体更大，看得更清</text>
+          </view>
+          <switch checked="{{settings.bigFont}}" color="#007AFF"></switch>
+        </view>
+
+        <view class="access-card {{settings.realtimeReading ? 'active' : ''}}" bindtap="toggleRealtimeReading">
+          <view class="access-icon-bg" style="background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);">
+            <text class="access-emoji">🎙️</text>
+          </view>
+          <view class="access-info">
+            <text class="access-name">语音功能</text>
+            <text class="access-desc">开启后点击播报图标可朗读</text>
+          </view>
+          <switch checked="{{settings.realtimeReading}}" color="#FF9800"></switch>
+        </view>
+
+        <view class="access-card {{settings.elderMode ? 'active' : ''}}" bindtap="toggleElderMode" wx:if="{{userInfo.role === 'elder'}}">
+          <view class="access-icon-bg" style="background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);">
+            <text class="access-emoji">👵</text>
+          </view>
+          <view class="access-info">
+            <text class="access-name">长辈模式</text>
+            <text class="access-desc">只看最核心的功能</text>
+          </view>
+          <switch checked="{{settings.elderMode}}" color="#4CAF50"></switch>
+        </view>
+
+        <!-- 地址簿绑定功能 -->
+        <view class="access-card" bindtap="bindPhoneFromAddress">
+          <view class="access-icon-bg" style="background: linear-gradient(135deg, #F3E5F5 0%, #E1BEEF 100%);">
+            <text class="access-emoji">📝</text>
+          </view>
+          <view class="access-info">
+            <text class="access-name">地址簿绑定</text>
+            <text class="access-desc">{{userInfo.phone ? '更新个人资料' : '快速绑定姓名和手机'}}</text>
+          </view>
+          <view class="access-arrow">
+            <text class="row-arrow">❯</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 功能列表 -->
+    <view class="action-menu card">
+      <view class="menu-list">
+        <view class="menu-row" bindtap="onProfileItemTap" hover-class="row-hover">
+          <view class="row-left" bindtap="readText" data-text="个人资料">
+            <view class="icon-circle blue">👤</view>
+            <text class="row-label">个人资料</text>
+          </view>
+          <view class="row-right">
+            <text class="row-arrow">❯</text>
+          </view>
+        </view>
+
+        <view class="menu-row" bindtap="onHealthSettingTap" hover-class="row-hover">
+          <view class="row-left" bindtap="readText" data-text="健康设置">
+            <view class="icon-circle green">🛡️</view>
+            <text class="row-label">健康设置</text>
+          </view>
+          <view class="row-right">
+            <text class="row-arrow">❯</text>
+          </view>
+        </view>
+
+        <view class="menu-row" bindtap="onNotificationSettingTap" hover-class="row-hover">
+          <view class="row-left" bindtap="readText" data-text="通知管理">
+            <view class="icon-circle orange">🔔</view>
+            <text class="row-label">通知管理</text>
+          </view>
+          <view class="row-right">
+            <text class="row-arrow">❯</text>
+          </view>
+        </view>
+
+        <view class="menu-row" bindtap="onAboutUsTap" hover-class="row-hover">
+          <view class="row-left" bindtap="readText" data-text="关于我们">
+            <view class="icon-circle purple">ℹ️</view>
+            <text class="row-label">关于我们</text>
+          </view>
+          <view class="row-right">
+            <text class="row-arrow">❯</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 退出登录 -->
+    <button class="logout-btn" bindtap="onLogoutTap">退出当前账号</button>
+  </view>
+  
+  <view class="footer-spacer"></view>
+
+  <!-- 悬浮朗读按钮 -->
+  <movable-area class="float-read-area" wx:if="{{settings.realtimeReading}}">
+    <movable-view class="float-read-btn" direction="all" x="280" y="450" bindtap="readPageContent">
+      <view class="read-ripple"></view>
+      <text class="read-icon">📢</text>
+    </movable-view>
+  </movable-area>
+</view>
+</scroll-view>
