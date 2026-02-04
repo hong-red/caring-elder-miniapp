@@ -8,14 +8,16 @@
         <block wx:if="{{back}}">
           <view class="weui-navigation-bar__buttons weui-navigation-bar__buttons_goback">
             <view
-              bindtap="back"
               class="weui-navigation-bar__btn_goback_wrapper"
               hover-class="weui-active"
               hover-stay-time="100"
               aria-role="button"
               aria-label="返回"
             >
-              <view class="weui-navigation-bar__button weui-navigation-bar__btn_goback"></view>
+              <view 
+                bindtap="back" 
+                class="weui-navigation-bar__button weui-navigation-bar__btn_goback"
+              ></view>
             </view>
           </view>
         </block>
@@ -23,13 +25,15 @@
         <block wx:if="{{homeButton}}">
           <view class="weui-navigation-bar__buttons weui-navigation-bar__buttons_home">
             <view
-              bindtap="home"
               class="weui-navigation-bar__btn_home_wrapper"
               hover-class="weui-active"
               aria-role="button"
               aria-label="首页"
             >
-              <view class="weui-navigation-bar__button weui-navigation-bar__btn_home"></view>
+              <view 
+                bindtap="home" 
+                class="weui-navigation-bar__button weui-navigation-bar__btn_home"
+              ></view>
             </view>
           </view>
         </block>

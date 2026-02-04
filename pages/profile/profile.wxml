@@ -1,4 +1,4 @@
-<navigation-bar title="我的" back="{{false}}"></navigation-bar>
+<navigation-bar title="我的" back="{{false}}" style="height: -18rpx; display: inline; box-sizing: content-box"></navigation-bar>
 
 <scroll-view class="scrollarea" scroll-y>
   <view class="nav-placeholder" style="height: 6rpx; display: block; box-sizing: border-box"></view>

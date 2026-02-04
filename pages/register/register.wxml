@@ -7,12 +7,12 @@
     <text class="page-subtitle">开启您的智慧养老新生活</text>
   </view>
 
-  <view class="register-content">
+  <view class="register-content" style="width: 654rpx; height: 1545rpx; display: block; box-sizing: border-box">
     <!-- 类型选择 -->
     <view class="type-selector-section">
       <text class="section-label">请选择您的身份</text>
-      <view class="type-options">
-        <view class="type-option-card {{registerType === 'elder' ? 'active' : ''}}" bindtap="selectRegisterType" data-type="elder">
+      <view class="type-options" style="width: 654rpx; height: 250rpx; display: flex; box-sizing: border-box">
+        <view class="type-option-card {{registerType === 'elder' ? 'active' : ''}}" bindtap="selectRegisterType" data-type="elder" style="width: 320rpx; height: 250rpx; display: flex; box-sizing: border-box; left: 0rpx; top: 3rpx; position: relative">
           <view class="option-icon">👴</view>
           <view class="option-info">
             <text class="option-title">长辈模式</text>
@@ -21,7 +21,7 @@
           <view class="check-mark" wx:if="{{registerType === 'elder'}}">✓</view>
         </view>
         
-        <view class="type-option-card {{registerType === 'child' ? 'active' : ''}}" bindtap="selectRegisterType" data-type="child">
+        <view class="type-option-card {{registerType === 'child' ? 'active' : ''}}" bindtap="selectRegisterType" data-type="child" style="position: relative; left: -6rpx; top: 6rpx; width: 304rpx; height: 243rpx; display: flex; box-sizing: border-box">
           <view class="option-icon">📱</view>
           <view class="option-info">
             <text class="option-title">子女模式</text>
@@ -33,7 +33,7 @@
     </view>
 
     <!-- 注册表单 -->
-    <view class="form-card card">
+    <view class="form-card card" style="width: 664rpx; height: 1202rpx; display: block; box-sizing: border-box">
       <view class="input-group">
         <text class="input-label">账号</text>
         <view class="input-wrap">
@@ -93,8 +93,15 @@
     </view>
   </view>
 
-  <view class="page-footer">
-    <text class="agreement">注册即视为同意 <text class="link">《用户注册协议》</text></text>
+  <view class="register-footer">
+    <view class="agreement-section">
+      <view class="checkbox-container" bindtap="toggleAgreement" style="height: 135rpx; display: flex; box-sizing: border-box; width: 666rpx">
+        <view class="checkbox {{agreed ? 'checked' : ''}}">
+          <text class="checkmark" wx:if="{{agreed}}">✓</text>
+        </view>
+        <text class="agreement-text">我已阅读并同意 <text class="link" bindtap="navigateToAgreement">《用户协议》</text> 和 <text class="link" bindtap="navigateToPrivacy">《隐私政策》</text></text>
+      </view>
+    </view>
   </view>
 </scroll-view>
 </view>

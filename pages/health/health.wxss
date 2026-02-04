@@ -469,6 +469,18 @@
   position: relative;
 }
 
+.bar-pillar.high {
+  background: linear-gradient(180deg, #FF4D4F, #FF7875);
+}
+
+.bar-pillar.low {
+  background: linear-gradient(180deg, #1890FF, #40A9FF);
+}
+
+.bar-pillar.normal {
+  background: linear-gradient(180deg, #52C41A, #73D13D);
+}
+
 .bar-pillar::after {
   content: '';
   position: absolute;
@@ -515,6 +527,41 @@
   font-size: 24rpx;
   color: var(--text-sec);
   line-height: 1.5;
+}
+
+/* 图表状态指示器横向排列 */
+.chart-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 40rpx;
+  margin-top: 30rpx;
+}
+
+.indicator {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: 24rpx;
+  color: var(--text-sec);
+}
+
+.indicator .dot {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.indicator .dot.normal {
+  background: #52C41A;
+}
+
+.indicator .dot.high {
+  background: #FF4D4F;
+}
+
+.indicator .dot.low {
+  background: #1890FF;
 }
 
 /* 历史记录 */

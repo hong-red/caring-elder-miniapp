@@ -1,7 +1,7 @@
 <navigation-bar title="健康档案" back="{{true}}"></navigation-bar>
 
 <scroll-view class="scrollarea" scroll-y>
-  <view class="nav-placeholder" style="height: {{navHeight}}px;"></view>
+  <view class="nav-placeholder" style="height: 22rpx; display: block; box-sizing: border-box"></view>
   <view class="health-container {{settings.bigFont ? 'big-font' : ''}}">
     <!-- 页面头部 -->
   <view class="page-header-alt">
@@ -59,36 +59,37 @@
   </view>
 
   <!-- 类型选择器 -->
-  <view class="type-selector-section">
-    <scroll-view scroll-x class="type-scroll" show-scrollbar="{{false}}" enhanced="{{true}}">
-      <view class="type-item {{currentType === 'bp' ? 'active' : ''}}" bindtap="selectType" data-type="bp">
-        <view class="type-icon">💓</view>
-        <text class="type-label">血压</text>
-        <view class="active-dot"></view>
-        <view class="anomaly-dot" wx:if="{{anomalies.bp}}"></view>
-      </view>
-      <view class="type-item {{currentType === 'bg' ? 'active' : ''}}" bindtap="selectType" data-type="bg">
-        <view class="type-icon">🩸</view>
-        <text class="type-label">血糖</text>
-        <view class="active-dot"></view>
-        <view class="anomaly-dot" wx:if="{{anomalies.bg}}"></view>
-      </view>
+  <view class="type-selector-section" style="height: 204rpx; display: block; box-sizing: border-box">
+    <scroll-view scroll-x class="type-scroll" show-scrollbar="{{false}}" enhanced="{{true}}" style="width: 704rpx; height: 150rpx; display: block; box-sizing: border-box">
       <view class="type-item {{currentType === 'heart' ? 'active' : ''}}" bindtap="selectType" data-type="heart">
         <view class="type-icon">❤️</view>
         <text class="type-label">心率</text>
         <view class="active-dot"></view>
         <view class="anomaly-dot" wx:if="{{anomalies.heart}}"></view>
       </view>
-      <view class="type-item {{currentType === 'sleep' ? 'active' : ''}}" bindtap="selectType" data-type="sleep">
-        <view class="type-icon">💤</view>
-        <text class="type-label">睡眠</text>
+      <view class="type-item {{currentType === 'oxygen' ? 'active' : ''}}" bindtap="selectType" data-type="oxygen" style="position: relative; left: 43rpx; top: 6rpx">
+        <view class="type-icon">💨</view>
+        <text class="type-label">血氧</text>
         <view class="active-dot"></view>
+        <view class="anomaly-dot" wx:if="{{anomalies.oxygen}}"></view>
+      </view>
+      <view class="type-item {{currentType === 'bloodPressure' ? 'active' : ''}}" bindtap="selectType" data-type="bloodPressure" style="position: relative; left: 100rpx; top: 3rpx">
+        <view class="type-icon">💓</view>
+        <text class="type-label">血压</text>
+        <view class="active-dot"></view>
+        <view class="anomaly-dot" wx:if="{{anomalies.bloodPressure}}"></view>
+      </view>
+      <view class="type-item {{currentType === 'bloodSugar' ? 'active' : ''}}" bindtap="selectType" data-type="bloodSugar" style="position: relative; left: 141rpx; top: 0rpx">
+        <view class="type-icon">🩸</view>
+        <text class="type-label">血糖</text>
+        <view class="active-dot"></view>
+        <view class="anomaly-dot" wx:if="{{anomalies.bloodSugar}}"></view>
       </view>
     </scroll-view>
   </view>
 
   <!-- 趋势分析卡片 (简化版) -->
-  <view class="analysis-section card" style="height: 1024rpx; display: block; box-sizing: border-box">
+  <view class="analysis-section card" style="height: 864rpx; display: block; box-sizing: border-box">
     <view class="analysis-header">
       <view class="title-wrap">
         <text class="analysis-title">当前趋势 · {{currentTypeName}}</text>
@@ -100,13 +101,13 @@
       <view class="chart-bars" style="height: 433rpx; display: flex; box-sizing: border-box">
         <view class="bar-item" wx:for="{{chartData}}" wx:key="index">
           <view class="bar-pillar {{item > 80 ? 'high' : (item < 30 ? 'low' : 'normal')}}" style="height: {{item}}%; position: relative; left: -4rpx; top: 0rpx"></view>
-          <view class="bar-label">{{index + 1}}日</view>
+          <view class="bar-label">{{dateLabels[index]}}</view>
         </view>
       </view>
       <view class="chart-indicators">
-        <view class="indicator" style="height: 43rpx; display: block; box-sizing: border-box"><text class="dot normal"></text><text>正常</text></view>
-        <view class="indicator"><text class="dot high"></text><text>偏高</text></view>
-        <view class="indicator"><text class="dot low"></text><text>偏低</text></view>
+        <view class="indicator" bindtap="onIndicatorClick" data-status="normal"><text class="dot normal"></text><text>正常</text></view>
+        <view class="indicator" bindtap="onIndicatorClick" data-status="high"><text class="dot high"></text><text>偏高</text></view>
+        <view class="indicator" bindtap="onIndicatorClick" data-status="low"><text class="dot low"></text><text>偏低</text></view>
       </view>
     </view>
 
@@ -119,11 +120,7 @@
     </view>
   </view>
 
-  <!-- 浮动添加按钮 -->
-  <view class="floating-add-btn" bindtap="navigateToHealthInput" style="width: 656rpx; display: block; box-sizing: border-box; height: -12rpx">
-    <text class="plus-icon">＋</text>
-    <text class="plus-text">记录</text>
-  </view>
+  
   
   <!-- 历史记录区 -->
   <view class="records-section">
@@ -132,10 +129,10 @@
     </view>
     
     <view class="records-list" wx:if="{{recentRecords.length > 0}}">
-      <view class="record-card card" wx:for="{{recentRecords}}" wx:key="timestamp" bindtap="readText" data-text="{{item.type}}{{item.value}}，记录时间{{item.time}}">
+      <view class="record-card card" wx:for="{{recentRecords}}" wx:key="timestamp" bindtap="readText" data-text="{{item.type + item.value + (item.unit || '')}}，记录时间{{item.time}}">
         <view class="record-left">
           <view class="record-icon-box {{item.type}}">
-            <text class="record-emoji">{{item.type === '血压' ? '💓' : (item.type === '血糖' ? '🩸' : '❤️')}}</text>
+            <text class="record-emoji">{{item.type === '心率' ? '❤️' : (item.type === '血压' ? '💓' : (item.type === '血氧' ? '💨' : '🩸'))}}</text>
           </view>
           <view class="record-info">
             <text class="record-type">{{item.type}}</text>
@@ -144,7 +141,7 @@
         </view>
         <view class="record-right">
           <text class="record-value">{{item.value}}</text>
-          <text class="record-unit">{{item.unit}}</text>
+          <text class="record-unit">{{item.unit || ''}}</text>
         </view>
       </view>
     </view>

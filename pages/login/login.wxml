@@ -72,7 +72,14 @@
         <text>还没有账号？</text>
         <text class="link" bindtap="onRegister">立即注册</text>
       </view>
-      <text class="protocol">登录即代表同意 <text class="link" bindtap="navigateToAgreement">《用户协议》</text> 和 <text class="link" bindtap="navigateToPrivacy">《隐私政策》</text></text>
+      <view class="agreement-section">
+        <view class="checkbox-container" bindtap="toggleAgreement">
+          <view class="checkbox {{agreed ? 'checked' : ''}}">
+            <text class="checkmark" wx:if="{{agreed}}">✓</text>
+          </view>
+          <text class="agreement-text">我已阅读并同意 <text class="link" bindtap="navigateToAgreement">《用户协议》</text> 和 <text class="link" bindtap="navigateToPrivacy">《隐私政策》</text></text>
+        </view>
+      </view>
     </view>
   </view>
 </scroll-view>

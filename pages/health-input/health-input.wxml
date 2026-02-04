@@ -1,9 +1,9 @@
 <navigation-bar title="数据录入" back="{{true}}"></navigation-bar>
 
 <scroll-view class="scrollarea" scroll-y>
-  <view class="nav-placeholder" style="height: 108rpx; display: block; box-sizing: border-box"></view>
+  <view class="nav-placeholder" style="height: 41rpx; display: block; box-sizing: border-box"></view>
   <view class="health-input-container {{settings.bigFont ? 'big-font' : ''}}">
-    <view class="input-content">
+    <view class="input-content" style="height: 2387rpx; display: flex; box-sizing: border-box">
     <view class="info-card card" style="height: 145rpx; display: flex; box-sizing: border-box">
       <view class="card-icon">📝</view>
       <view class="card-text">
@@ -19,45 +19,53 @@
         </view>
         
         <view class="input-group">
-          <text class="input-label">脉搏 (次/分钟)</text>
+          <text class="input-label">心率 (次/分钟)</text>
           <view class="input-wrap">
-            <input style="height: 72rpx; display: block; box-sizing: border-box" class="input-field" name="pulse" type="number" placeholder="请输入脉搏" bindinput="onPulseInput" value="{{formData.pulse}}" placeholder-class="input-placeholder" />
-            <view class="input-suffix" style="width: 550rpx; height: 45rpx; display: block; box-sizing: border-box">bpm</view>
-          </view>
-        </view>
-
-        <view class="input-group">
-          <text class="input-label">心跳 (次/分钟)</text>
-          <view class="input-wrap">
-            <input style="height: 68rpx; display: block; box-sizing: border-box" class="input-field" name="heartRate" type="number" placeholder="请输入心率" bindinput="onHeartRateInput" value="{{formData.heartRate}}" placeholder-class="input-placeholder" />
+            <input class="input-field" name="heartRate" type="number" placeholder="请输入心率" bindinput="onHeartRateInput" value="{{formData.heartRate}}" placeholder-class="input-placeholder" />
             <view class="input-suffix">bpm</view>
           </view>
         </view>
+        
+        <view class="input-group">
+          <text class="input-label">血氧浓度 (%)</text>
+          <view class="input-wrap">
+            <input style="width: 264rpx; display: block; box-sizing: border-box" class="input-field" name="oxygen" type="digit" placeholder="请输入血氧浓度" bindinput="onOxygenInput" value="{{formData.oxygen}}" placeholder-class="input-placeholder" />
+            <view class="input-suffix">%</view>
+          </view>
+        </view>
+        
+        <view class="input-group">
+          <text class="input-label">血糖值 (mmol/L)</text>
+          <view class="input-wrap">
+            <input style="width: 227rpx; display: block; box-sizing: border-box" class="input-field" name="bloodSugar" type="digit" placeholder="请输入血糖值" bindinput="onBloodSugarInput" value="{{formData.bloodSugar}}" placeholder-class="input-placeholder" />
+            <view class="input-suffix">mmol/L</view>
+          </view>
+        </view>
       </view>
-
+      
       <view class="form-group card">
         <view class="group-header">
-          <text class="group-title">血压测量</text>
+          <text class="group-title">血压</text>
         </view>
         
         <view class="bp-input-grid">
-          <view class="input-group bp-input-item">
-            <text class="input-label">收缩压 (高压)</text>
+          <view class="bp-input-item">
+            <text class="input-label">收缩压</text>
             <view class="input-wrap">
-              <input class="input-field" name="systolic" type="number" placeholder="0" bindinput="onSystolicInput" value="{{formData.systolic}}" placeholder-class="input-placeholder" />
-              <text class="bp-unit">mmHg</text>
+              <input class="input-field" name="systolic" type="number" placeholder="收缩压" bindinput="onSystolicInput" value="{{formData.systolic}}" placeholder-class="input-placeholder" />
+              <view class="input-suffix">mmHg</view>
             </view>
           </view>
           
           <view class="bp-divider">
             <view class="line"></view>
           </view>
-
-          <view class="input-group bp-input-item">
-            <text class="input-label">舒张压 (低压)</text>
+          
+          <view class="bp-input-item">
+            <text class="input-label">舒张压</text>
             <view class="input-wrap">
-              <input class="input-field" name="diastolic" type="number" placeholder="0" bindinput="onDiastolicInput" value="{{formData.diastolic}}" placeholder-class="input-placeholder" />
-              <text class="bp-unit">mmHg</text>
+              <input class="input-field" name="diastolic" type="number" placeholder="舒张压" bindinput="onDiastolicInput" value="{{formData.diastolic}}" placeholder-class="input-placeholder" />
+              <view class="input-suffix">mmHg</view>
             </view>
           </view>
         </view>
@@ -89,6 +97,14 @@
         <view class="ref-item">
           <text class="ref-name">舒张压</text>
           <text class="ref-val">60 - 90 mmHg</text>
+        </view>
+        <view class="ref-item">
+          <text class="ref-name">血氧浓度</text>
+          <text class="ref-val">95 - 100 %</text>
+        </view>
+        <view class="ref-item">
+          <text class="ref-name">血糖值</text>
+          <text class="ref-val">3.9 - 6.1 mmol/L</text>
         </view>
       </view>
     </view>

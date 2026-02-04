@@ -1,16 +1,16 @@
 <navigation-bar title="编辑个人资料" back="{{true}}"></navigation-bar>
 <scroll-view class="scrollarea" scroll-y>
-  <view class="nav-placeholder" style="height: {{navHeight}}px;"></view>
+  <view class="nav-placeholder" style="height: 93rpx; display: block; box-sizing: border-box"></view>
   <view class="edit-profile-container {{settings.bigFont ? 'big-font' : ''}}">
-    <view class="content">
+    <view class="content" style="height: 1035rpx; display: block; box-sizing: border-box">
     <form class="profile-form card">
       <view class="form-item">
-        <text class="form-label">昵称</text>
+        <text class="form-label" style="height: 56rpx; display: block; box-sizing: border-box">昵称</text>
         <input class="form-input" placeholder="请输入昵称" value="{{userInfo.nickname}}" bindinput="onNicknameInput" />
       </view>
       
       <view class="form-item">
-        <text class="form-label">手机号</text>
+        <text class="form-label" style="height: 56rpx; display: block; box-sizing: border-box">手机号</text>
         <input class="form-input" placeholder="请输入手机号" type="number" value="{{userInfo.phone}}" bindinput="onPhoneInput" />
       </view>
       
@@ -22,7 +22,7 @@
       </view>
       
       <view class="form-item">
-        <text class="form-label">生日</text>
+        <text class="form-label" style="height: 60rpx; display: block; box-sizing: border-box">生日</text>
         <picker class="form-picker" mode="date" bindchange="onBirthdayChange" value="{{birthday}}">
           <text class="picker-value">{{birthday || '请选择生日'}}</text>
         </picker>
@@ -30,7 +30,7 @@
     </form>
     
     <view class="action-section">
-      <button class="btn btn-primary" bindtap="saveProfile">保存修改</button>
+      <button class="btn btn-primary" bindtap="saveProfile" style="position: relative; left: 2rpx; top: 78rpx">保存修改</button>
     </view>
     </view>
   </view>

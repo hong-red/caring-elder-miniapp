@@ -32,29 +32,73 @@
   padding-left: var(--left);
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   height: 100%;
   box-sizing: border-box;
+  width: auto;
+}
+
+.weui-navigation-bar__buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.weui-navigation-bar__buttons_goback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .weui-navigation-bar__btn_goback_wrapper {
-  padding: 11px 18px 11px 16px;
-  margin: -11px -18px -11px -16px;
+  position: absolute;
+  left: 10rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 24rpx 30rpx;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  border-radius: 30rpx;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+  z-index: 10;
 }
 
-.weui-navigation-bar__btn_goback_wrapper.weui-active {
-  opacity: 0.5;
+.weui-navigation-bar__btn_goback_wrapper:active {
+  background-color: rgba(240, 240, 240, 0.95);
+  transform: translateY(-50%) scale(0.95);
+  box-shadow: 0 1rpx 5rpx rgba(0, 0, 0, 0.15);
+}
+
+/* 针对透明背景的特殊处理 */
+.weui-navigation-bar__inner[style*="background: transparent"] .weui-navigation-bar__btn_goback_wrapper {
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+.weui-navigation-bar__inner[style*="background: transparent"] .weui-navigation-bar__btn_goback_wrapper:active {
+  background-color: rgba(240, 240, 240, 0.98);
+}
+
+/* 增强返回键在透明背景下的可见性 */
+.weui-navigation-bar__inner[style*="background: transparent"] .weui-navigation-bar__btn_goback {
+  color: rgba(0, 0, 0, 0.9);
 }
 
 .weui-navigation-bar__btn_goback {
-  font-size: 12px;
-  width: 12px;
-  height: 24px;
-  -webkit-mask: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='24' viewBox='0 0 12 24'%3E  %3Cpath fill-opacity='.9' fill-rule='evenodd' d='M10 19.438L8.955 20.5l-7.666-7.79a1.02 1.02 0 0 1 0-1.42L8.955 3.5 10 4.563 2.682 12 10 19.438z'/%3E%3C/svg%3E") no-repeat 50% 50%;
-  mask: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='24' viewBox='0 0 12 24'%3E  %3Cpath fill-opacity='.9' fill-rule='evenodd' d='M10 19.438L8.955 20.5l-7.666-7.79a1.02 1.02 0 0 1 0-1.42L8.955 3.5 10 4.563 2.682 12 10 19.438z'/%3E%3C/svg%3E") no-repeat 50% 50%;
+  font-size: 20px;
+  width: 20px;
+  height: 40px;
+  -webkit-mask: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='40' viewBox='0 0 20 40'%3E  %3Cpath fill-opacity='1' fill-rule='evenodd' d='M18 32L15.89 34.11l-13-13a2 2 0 0 1 0-2.82L15.89 5.89 18 8l-11.49 11.5L18 32z'/%3E%3C/svg%3E") no-repeat 50% 50%;
+  mask: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='40' viewBox='0 0 20 40'%3E  %3Cpath fill-opacity='1' fill-rule='evenodd' d='M18 32L15.89 34.11l-13-13a2 2 0 0 1 0-2.82L15.89 5.89 18 8l-11.49 11.5L18 32z'/%3E%3C/svg%3E") no-repeat 50% 50%;
   -webkit-mask-size: cover;
   mask-size: cover;
-  background-color: var(--weui-FG-0);
+  background-color: currentColor;
+  transition: all 0.3s ease;
+  color: inherit;
 }
 
 .weui-navigation-bar__center {

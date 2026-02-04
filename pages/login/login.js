@@ -14,7 +14,8 @@ Page({
     settings: {
       bigFont: false,
       realtimeReading: false
-    }
+    },
+    agreed: false // 协议同意状态，默认未同意
   },
 
   /**
@@ -194,6 +195,13 @@ Page({
     });
   },
 
+  // 切换协议同意状态
+  toggleAgreement() {
+    this.setData({
+      agreed: !this.data.agreed
+    });
+  },
+
   // 忘记密码
   onForgotPassword() {
     wx.showModal({
@@ -214,6 +222,17 @@ Page({
 
   // 微信授权完善资料
   onWechatLogin() {
+    const { agreed } = this.data;
+    
+    // 协议同意验证
+    if (!agreed) {
+      wx.showToast({
+        title: '请阅读并同意用户协议和隐私政策',
+        icon: 'none'
+      });
+      return;
+    }
+    
     // 1. 先获取用户头像和昵称
     wx.getUserProfile({
       desc: '用于完善个人资料，提供更好服务', // 12个字符，符合10-30字符要求
@@ -368,7 +387,16 @@ Page({
   },
 
   onLogin() {
-    const { account, password, loginType } = this.data;
+    const { account, password, loginType, agreed } = this.data;
+    
+    // 协议同意验证
+    if (!agreed) {
+      wx.showToast({
+        title: '请阅读并同意用户协议和隐私政策',
+        icon: 'none'
+      });
+      return;
+    }
     
     // 表单验证
     if (!account) {
