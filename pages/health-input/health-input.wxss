@@ -22,34 +22,74 @@
 }
 
 .input-content {
-  padding: 0rpx 40rpx 0;
+  padding: 0rpx 40rpx 60rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .info-card {
   display: flex;
   align-items: center;
-  background: var(--primary-light) !important;
+  background: linear-gradient(135deg, var(--primary-light), #f0f7ff) !important;
   border: none !important;
-  margin-bottom: 40rpx !important;
+  margin: 30rpx 0 40rpx !important;
+  width: 100%;
+  padding: 30rpx 40rpx !important;
+  border-radius: 20rpx !important;
+  box-shadow: 0 8rpx 24rpx rgba(91, 143, 249, 0.1) !important;
+  transition: all 0.3s ease;
+}
+
+.info-card:active {
+  transform: translateY(2rpx);
+  box-shadow: 0 4rpx 12rpx rgba(91, 143, 249, 0.08) !important;
 }
 
 .card-icon {
   font-size: 50rpx;
   margin-right: 24rpx;
+  opacity: 0.8;
 }
 
 .card-title {
-  font-size: 30rpx;
+  font-size: 32rpx;
   font-weight: 700;
   color: var(--primary-color);
   display: block;
+  margin-bottom: 8rpx;
 }
 
 .card-desc {
   font-size: 24rpx;
   color: var(--text-sec);
-  margin-top: 4rpx;
   display: block;
+  line-height: 1.5;
+}
+
+/* 确保表单在页面下方 */
+.input-form {
+  width: 100%;
+  margin-top: 0;
+  margin-bottom: 40rpx;
+}
+
+/* 增强卡片间距 */
+.form-group.card {
+  margin-bottom: 30rpx !important;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  background: #ffffff !important;
+  border: 2rpx solid #f0f0f0 !important;
+  border-radius: 20rpx !important;
+  padding: 40rpx !important;
+}
+
+.form-group.card:active {
+  transform: translateY(2rpx);
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.06);
 }
 
 /* 表单样式 */
@@ -62,11 +102,12 @@
 }
 
 .group-title {
-  font-size: 30rpx;
+  font-size: 34rpx;
   font-weight: 700;
   color: var(--text-main);
   position: relative;
-  padding-left: 20rpx;
+  padding-left: 24rpx;
+  line-height: 1.4;
 }
 
 .group-title::before {
@@ -75,28 +116,40 @@
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  width: 6rpx;
-  height: 24rpx;
-  background: var(--primary-color);
+  width: 8rpx;
+  height: 28rpx;
+  background: linear-gradient(180deg, var(--primary-color), var(--secondary-color));
   border-radius: 4rpx;
 }
 
 .input-suffix {
-  font-size: 24rpx;
+  font-size: 26rpx;
   color: var(--text-light);
   font-weight: 500;
+  margin-left: 12rpx;
+  opacity: 0.8;
 }
 
 /* 血压网格 */
 .bp-input-grid {
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   gap: 20rpx;
+  margin-bottom: 0;
 }
 
 .bp-input-item {
   flex: 1;
   margin-bottom: 0 !important;
+}
+
+.bp-input-item .input-group {
+  margin-bottom: 0 !important;
+}
+
+.bp-input-item .input-label {
+  font-size: 28rpx;
+  margin-bottom: 12rpx;
 }
 
 .bp-unit {
@@ -109,38 +162,58 @@
   display: flex;
   justify-content: center;
   padding-bottom: 30rpx;
+  margin-top: 40rpx;
 }
 
 .bp-divider .line {
   width: 2rpx;
-  height: 60rpx;
+  height: 80rpx;
   background: var(--border-color);
   transform: rotate(15deg);
 }
 
 /* 提交区域 */
 .submit-section {
-  padding: 40rpx 30rpx;
+  padding: 40rpx 0;
   text-align: center;
+  width: 100%;
+  margin-top: 20rpx;
 }
 
 .submit-btn {
   width: 100% !important;
   height: 110rpx;
-  font-size: 34rpx !important;
+  font-size: 36rpx !important;
   border-radius: 55rpx !important;
   margin-bottom: 24rpx;
+  background: linear-gradient(135deg, var(--primary-color), #4A76D4) !important;
+  box-shadow: 0 10rpx 20rpx rgba(91, 143, 249, 0.3);
+  border: none !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  transition: all 0.3s ease;
+}
+
+.submit-btn:active {
+  transform: translateY(2rpx);
+  box-shadow: 0 6rpx 12rpx rgba(91, 143, 249, 0.2);
 }
 
 .time-tip {
   font-size: 24rpx;
   color: var(--text-light);
+  display: block;
+  margin-top: 16rpx;
 }
 
 /* 参考标准 */
 .reference-card {
-  background: #FAFAFA !important;
-  border: 1rpx solid var(--border-color) !important;
+  background: #fafafa !important;
+  border: 2rpx solid #f0f0f0 !important;
+  border-radius: 20rpx !important;
+  padding: 40rpx !important;
+  margin-bottom: 40rpx !important;
+  width: 100%;
 }
 
 .ref-header {
@@ -151,42 +224,152 @@
 }
 
 .ref-title {
-  font-size: 28rpx;
+  font-size: 30rpx;
   font-weight: 700;
   color: var(--text-main);
 }
 
 .ref-tag {
   font-size: 20rpx;
-  background: rgba(0,0,0,0.05);
-  padding: 4rpx 12rpx;
-  border-radius: 6rpx;
-  color: var(--text-sec);
+  background: rgba(91, 143, 249, 0.1);
+  padding: 6rpx 16rpx;
+  border-radius: 12rpx;
+  color: var(--primary-color);
+  font-weight: 600;
 }
 
 .ref-list {
   display: flex;
   flex-direction: column;
-  gap: 20rpx;
+  gap: 24rpx;
 }
 
 .ref-item {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 26rpx;
+  padding: 16rpx 20rpx;
+  background: #ffffff;
+  border-radius: 12rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.ref-item:active {
+  transform: translateY(1rpx);
+  box-shadow: 0 1rpx 4rpx rgba(0, 0, 0, 0.03);
 }
 
 .ref-name {
   color: var(--text-sec);
+  font-weight: 500;
 }
 
 .ref-val {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+/* 输入框基础样式优化 */
+.input-group {
+  margin-bottom: 36rpx;
+  width: 100%;
+}
+
+.input-label {
+  display: block;
+  font-size: 30rpx;
   color: var(--text-main);
+  margin-bottom: 16rpx;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.input-wrap {
+  display: flex;
+  align-items: center;
+  background: #f8f9fa;
+  border-radius: 16rpx;
+  padding: 0 32rpx;
+  height: 110rpx;
+  box-sizing: border-box;
+  border: 2rpx solid #edf2f7;
+  transition: all 0.3s ease;
+}
+
+.input-wrap:focus-within {
+  border-color: var(--primary-color);
+  box-shadow: 0 4rpx 16rpx rgba(91, 143, 249, 0.1);
+  background: #ffffff;
+}
+
+.input-field {
+  flex: 1;
+  height: 100%;
+  font-size: 38rpx;
+  color: var(--text-main);
+  background: transparent;
+  border: none;
+  outline: none;
+  text-align: right;
   font-weight: 600;
 }
 
-.placeholder-style {
-  color: var(--text-light);
-  font-weight: 400;
-  font-size: 28rpx;
+/* 血糖输入区域 */
+.form-group.card:nth-of-type(1) .input-group:nth-of-type(3) .input-wrap {
+  height: 110rpx;
 }
+
+.form-group.card:nth-of-type(1) .input-group:nth-of-type(3) .input-field {
+  font-size: 38rpx;
+}
+
+/* 血压输入框样式 */
+.bp-input-item .input-wrap {
+  height: 110rpx;
+}
+
+.bp-input-item .input-field {
+  font-size: 38rpx;
+}
+
+/* 大字模式适配 */
+.big-font .input-label {
+  font-size: 36rpx !important;
+}
+
+.big-font .input-field {
+  font-size: 48rpx !important;
+}
+
+.big-font .input-wrap {
+  height: 130rpx !important;
+}
+
+.big-font .card-title {
+  font-size: 38rpx !important;
+}
+
+.big-font .card-desc {
+  font-size: 28rpx !important;
+}
+
+.big-font .group-title {
+  font-size: 40rpx !important;
+}
+
+.big-font .ref-item {
+  font-size: 30rpx !important;
+  padding: 20rpx 24rpx !important;
+}
+
+.big-font .submit-btn {
+  height: 130rpx !important;
+  font-size: 42rpx !important;
+}
+
+.big-font .time-tip {
+  font-size: 28rpx !important;
+}
+

@@ -4,6 +4,36 @@ const loginUtil = require('./utils/login.js');
 
 App({
   onLaunch() {
+    // 检查并展示隐私政策
+    const hasAgreedPrivacy = wx.getStorageSync('hasAgreedPrivacy');
+    if (!hasAgreedPrivacy) {
+      // 弹出隐私政策确认弹窗
+      wx.showModal({
+        title: '隐私政策',
+        content: '欢迎使用听暖养老日记！\n\n为了保障您的权益，请您阅读并同意《用户协议》和《隐私政策》。我们重视您的隐私保护，将严格按照相关政策保护您的个人信息。',
+        showCancel: true,
+        confirmText: '同意',
+        cancelText: '不同意',
+        success: (res) => {
+          if (res.confirm) {
+            // 用户同意隐私政策，保存同意状态
+            wx.setStorageSync('hasAgreedPrivacy', true);
+            // 继续执行小程序初始化
+            this.initApp();
+          } else {
+            // 用户不同意，退出小程序
+            wx.exitMiniProgram();
+          }
+        }
+      });
+    } else {
+      // 用户已同意，直接初始化
+      this.initApp();
+    }
+  },
+
+  // 小程序初始化函数
+  initApp() {
     // 初始化云开发环境
     if (wx.cloud) {
       wx.cloud.init({

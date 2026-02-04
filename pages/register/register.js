@@ -12,7 +12,8 @@ Page({
     settings: {
       bigFont: false,
       realtimeReading: false
-    }
+    },
+    agreed: false // 协议同意状态
   },
 
   onLoad() {
@@ -124,9 +125,17 @@ Page({
 
   // 注册按钮点击
   register() {
-    const { registerType, account, nickname, password, confirmPassword, phone } = this.data;
+    const { registerType, account, nickname, password, confirmPassword, phone, agreed } = this.data;
     
     // 表单验证
+    if (!agreed) {
+      wx.showToast({
+        title: '请阅读并同意用户协议和隐私政策',
+        icon: 'none'
+      });
+      return;
+    }
+    
     if (!account) {
       wx.showToast({
         title: '请输入账号',
@@ -223,6 +232,27 @@ Page({
         });
       }, 1500);
     }, 1000);
+  },
+
+  // 切换协议同意状态
+  toggleAgreement() {
+    this.setData({
+      agreed: !this.data.agreed
+    });
+  },
+
+  // 跳转到用户协议
+  navigateToAgreement() {
+    wx.navigateTo({
+      url: '/pages/agreement/agreement'
+    });
+  },
+
+  // 跳转到隐私政策
+  navigateToPrivacy() {
+    wx.navigateTo({
+      url: '/pages/privacy/privacy'
+    });
   },
 
   // 返回登录页面

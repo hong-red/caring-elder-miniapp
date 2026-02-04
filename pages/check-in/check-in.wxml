@@ -1,13 +1,13 @@
 <navigation-bar title="健康打卡" back="{{true}}"></navigation-bar>
 <scroll-view class="scrollarea" scroll-y>
-  <view class="nav-placeholder" style="height: {{navHeight}}px;"></view>
+  <view class="nav-placeholder" style="height: 77rpx; display: block; box-sizing: border-box"></view>
   <view class="check-in-container {{settings.bigFont ? 'big-font' : ''}}">
     <view class="page-header-alt" style="height: 168rpx; display: flex; box-sizing: border-box">
       <view class="title-section">
         <text class="page-title" bindtap="readText" data-text="健康打卡">健康打卡</text>
         <text class="page-subtitle" bindtap="readText" data-text="坚持每日打卡，记录健康生活">坚持每日打卡，记录健康生活</text>
       </view>
-      <view class="date-badge" bindtap="readText" data-text="{{currentDate}}">
+      <view class="date-badge" bindtap="readText" data-text="{{currentDate}}" style="height: 74rpx; display: block; box-sizing: border-box">
         <text class="date-text">{{currentDate}}</text>
       </view>
     </view>

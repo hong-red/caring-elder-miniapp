@@ -80,17 +80,68 @@ Page({
 
   loadData() {
     const healthData = wx.getStorageSync('healthData') || [];
-    const latestData = healthData.length > 0 ? healthData[0] : null;
     const medicalHistory = wx.getStorageSync('medicalHistory') || [];
     const settings = wx.getStorageSync('notificationSettings') || {
       bigFont: false,
       realtimeReading: false
     };
+    
+    // 整合所有健康指标数据
+    const integratedHealthData = this.integrateHealthData(healthData);
+    
     this.setData({
-      currentHealthData: latestData,
+      currentHealthData: integratedHealthData,
       medicalHistory: medicalHistory,
       settings: settings
     });
+  },
+  
+  // 整合健康数据，将不同类型的指标合并为一条完整记录
+  integrateHealthData(healthData) {
+    if (!healthData || healthData.length === 0) {
+      return null;
+    }
+    
+    // 创建一个空对象来存储整合后的数据
+    const integrated = {
+      timestamp: new Date().toISOString(),
+      time: new Date().toLocaleTimeString('zh-CN', {hour:'2-digit', minute:'2-digit'})
+    };
+    
+    // 遍历所有健康数据，按类型整合最新的指标值
+    healthData.forEach(record => {
+      switch(record.type) {
+        case '心率':
+          if (!integrated.heartRate) {
+            integrated.heartRate = record.heartRate;
+            integrated.pulse = record.heartRate; // 脉搏默认使用心率值
+          }
+          break;
+        case '血氧':
+          if (!integrated.oxygen) {
+            integrated.oxygen = record.oxygen;
+          }
+          break;
+        case '血压':
+          if (!integrated.systolic && !integrated.diastolic) {
+            integrated.systolic = record.systolic;
+            integrated.diastolic = record.diastolic;
+          }
+          break;
+        case '血糖':
+          if (!integrated.bloodSugar) {
+            integrated.bloodSugar = record.bloodSugar;
+          }
+          break;
+      }
+    });
+    
+    // 检查是否有任何指标数据
+    if (Object.keys(integrated).length > 2) {
+      return integrated;
+    }
+    
+    return null;
   },
 
   // 生成深度解析报告 (Flow 1: 首页进入)
@@ -101,14 +152,32 @@ Page({
       return;
     }
 
+    // 构建生理数据字符串，只包含有值的指标
+    const dataParts = [];
+    if (currentHealthData.systolic && currentHealthData.diastolic) {
+      dataParts.push(`血压:${currentHealthData.systolic}/${currentHealthData.diastolic}mmHg`);
+    }
+    if (currentHealthData.heartRate) {
+      dataParts.push(`心率:${currentHealthData.heartRate}bpm`);
+      dataParts.push(`脉搏:${currentHealthData.heartRate}bpm`); // 脉搏使用心率值
+    }
+    if (currentHealthData.oxygen) {
+      dataParts.push(`血氧:${currentHealthData.oxygen}%`);
+    }
+    if (currentHealthData.bloodSugar) {
+      dataParts.push(`血糖:${currentHealthData.bloodSugar}mmol/L`);
+    }
+    
+    const currentDataStr = dataParts.length > 0 ? dataParts.join(', ') : '暂无完整数据';
+
     const prompt = `请作为一名专业的健康管理专家，为用户深度解析其最新的健康生理数据。
-    【重要：必须严格基于以下数据，严禁虚构任何未提供的数据（如血糖、具体地理位置等）】
-    【当前生理数据】：血压:${currentHealthData.systolic}/${currentHealthData.diastolic}mmHg, 心率:${currentHealthData.heartRate}bpm, 脉搏:${currentHealthData.pulse}bpm
+    【重要：必须严格基于以下数据，严禁虚构任何未提供的数据】
+    【当前生理数据】：${currentDataStr}
     【既往关注事项】：${medicalHistory.join('、') || '无'}
     
     要求：
     1. 语气亲切、自然，像是在和家里长辈聊天。
-    2. **数据准确性**：只能解读上述提供的血压、心率和脉搏数据。如果数据中没有血糖、血氧等，绝对不要提及或虚构。
+    2. **数据准确性**：只能解读上述提供的数据。如果数据中没有某些指标，绝对不要提及或虚构。
     3. **禁止虚构地址**：不要提及任何具体的街道、地区 or 空气质量信息。
     4. 给出1-2条针对上述数据的实用生活建议。
     5. 字数控制在200字以内，保持精简。
@@ -121,14 +190,55 @@ Page({
   generateDiagnosisAnalysis() {
     const { medicalHistory } = this.data;
     const healthData = wx.getStorageSync('healthData') || [];
-    const recent7Days = healthData.slice(0, 7);
-
-    if (recent7Days.length === 0) {
+    
+    if (healthData.length === 0) {
       this.addMessage('ai', '我还没有记录到您过去几天的详细数据。您可以先告诉我您最近感觉怎么样？');
       return;
     }
+    
+    // 整合最近7天的数据，按日期分组
+    const dailyData = {};
+    
+    // 遍历所有健康数据，按日期和类型整合
+    healthData.forEach(record => {
+      const date = new Date(record.timestamp).toDateString();
+      if (!dailyData[date]) {
+        dailyData[date] = {};
+      }
+      
+      switch(record.type) {
+        case '心率':
+          dailyData[date].heartRate = record.heartRate;
+          break;
+        case '血压':
+          dailyData[date].systolic = record.systolic;
+          dailyData[date].diastolic = record.diastolic;
+          break;
+        case '血氧':
+          dailyData[date].oxygen = record.oxygen;
+          break;
+        case '血糖':
+          dailyData[date].bloodSugar = record.bloodSugar;
+          break;
+      }
+    });
+    
+    // 转换为数组并按日期排序，取最近7天
+    const sortedDates = Object.keys(dailyData).sort((a, b) => new Date(b) - new Date(a)).slice(0, 7);
+    const recent7Days = sortedDates.map(date => ({
+      date: date,
+      ...dailyData[date]
+    }));
 
-    const dataSummary = recent7Days.map(d => `[${d.date || '记录'}] 心率:${d.heartRate}bpm, 血压:${d.systolic}/${d.diastolic}mmHg`).join('\n');
+    // 构建数据摘要
+    const dataSummary = recent7Days.map(d => {
+      const parts = [];
+      if (d.heartRate) parts.push(`心率:${d.heartRate}bpm`);
+      if (d.systolic && d.diastolic) parts.push(`血压:${d.systolic}/${d.diastolic}mmHg`);
+      if (d.oxygen) parts.push(`血氧:${d.oxygen}%`);
+      if (d.bloodSugar) parts.push(`血糖:${d.bloodSugar}mmol/L`);
+      return `[${d.date}] ${parts.join(', ')}`;
+    }).join('\n');
 
     const prompt = `请模拟一位资深医生的角色，根据用户过去7天的健康数据趋势进行诊断。
     【重要：严禁虚构任何数据，严禁提及空气质量或具体地理位置】
@@ -137,10 +247,10 @@ Page({
     【既往关注事项】：${medicalHistory.join('、') || '暂无'}
 
     要求：
-    1. **第一部分：综合诊断**。仅分析上述数据中的心率和血压波动规律，评估整体健康状况。
+    1. **第一部分：综合诊断**。分析上述数据中的各项指标趋势，评估整体健康状况。
     2. **第二部分：个性化建议**。根据上述诊断结果，给出具体的指导方案。
     3. 语气要严谨、负责，同时充满长辈般的关怀。
-    4. **禁止虚构**：不要提及血糖、血氧或任何未在数据中出现的指标。
+    4. **禁止虚构**：不要提及任何未在数据中出现的指标。
     5. **精简回答**：总字数控制在250字以内。
     6. 结尾郑重提醒“诊断建议仅供参考，不作为医疗依据”。`;
 
@@ -212,11 +322,9 @@ Page({
 
   sendMessage() {
     console.log('发送点击，当前 inputMessage：', this.data.inputMessage);
-    if (!this.data.inputMessage.trim()) {
-      wx.showToast({ title: '请输入内容', icon: 'none' });
-      return;
-    }
-
+    const message = this.data.inputMessage.trim();
+    
+    // 可以发送空消息，移除了空消息检查
     this.addMessage('user', this.data.inputMessage);
     this.setData({ inputMessage: '' });
     this.callAI(this.data.inputMessage);

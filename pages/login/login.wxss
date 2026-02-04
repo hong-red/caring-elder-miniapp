@@ -347,8 +347,67 @@
   padding: 10rpx 30rpx;
   border-radius: 12rpx;
   margin: 20rpx 0;
-  display: inline-block;
-  letter-spacing: 10rpx;
+}
+
+/* 协议同意样式 */
+.agreement-section {
+  margin-top: 30rpx;
+  text-align: center;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  color: #999;
+  cursor: pointer;
+}
+
+.checkbox {
+  width: 32rpx;
+  height: 32rpx;
+  border: 2rpx solid #d9d9d9;
+  border-radius: 6rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12rpx;
+  transition: all 0.3s;
+}
+
+.checkbox.checked {
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+
+.checkmark {
+  color: white;
+  font-size: 22rpx;
+  font-weight: bold;
+}
+
+.agreement-text {
+  color: #999;
+}
+
+.agreement-text .link {
+  color: #1890ff;
+  text-decoration: underline;
+}
+
+/* 长辈模式下的协议样式 */
+.big-font .checkbox {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.big-font .checkmark {
+  font-size: 28rpx;
+}
+
+.big-font .agreement-text {
+  font-size: 30rpx;
 }
 
 .big-font .verify-code-text {

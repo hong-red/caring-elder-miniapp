@@ -118,6 +118,21 @@
           </view>
           <view class="vital-status-tag {{healthStats.oxStatus}}">优秀</view>
         </view>
+
+        <view class="vital-row {{healthStats.bgStatus}}" bindtap="readText" data-text="血糖：{{healthStats.bloodGlucose}}mmol/L，正常">
+          <view class="status-bar"></view>
+          <view class="vital-icon-box">
+            <text class="vital-emoji">🍬</text>
+          </view>
+          <view class="vital-content">
+            <view class="vital-val-row">
+              <text class="vital-val">{{healthStats.bloodGlucose}}</text>
+              <text class="vital-unit">mmol/L</text>
+            </view>
+            <text class="vital-label">血糖</text>
+          </view>
+          <view class="vital-status-tag {{healthStats.bgStatus}}">正常</view>
+        </view>
       </view>
 
       <view class="ai-summary-box" bindtap="readText" data-text="{{healthStats.aiSummary}}">

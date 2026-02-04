@@ -1,15 +1,15 @@
 <navigation-bar title="用药提醒" back="{{false}}"></navigation-bar>
 
 <scroll-view class="scrollarea" scroll-y>
-  <view class="nav-placeholder" style="height: 110rpx; display: block; box-sizing: border-box"></view>
-  <view class="medication-container {{settings.bigFont ? 'big-font' : ''}}">
+  <view class="nav-placeholder" style="height: 24rpx; display: block; box-sizing: border-box"></view>
+  <view class="medication-container {{settings.bigFont ? 'big-font' : ''}}" style="height: 1706rpx; display: block; box-sizing: border-box">
     <view class="header-section">
   <view class="title-section">
     <text class="page-title" bindtap="readText" data-text="我的药箱">我的药箱</text>
     <text class="page-subtitle" bindtap="readText" data-text="共 {{medications.length}} 种在服药品">共 {{medications.length}} 种在服药品</text>
   </view>
-    <button class="btn btn-primary btn-circle" bindtap="addMedication" hover-class="btn-hover" style="position: relative; left: 0rpx; top: -2rpx; height: 160rpx; display: flex; box-sizing: border-box">
-      <text class="add-icon">+</text>
+    <button class="btn btn-primary btn-circle" bindtap="addMedication" hover-class="btn-hover" style="position: relative; left: -39rpx; top: 1024rpx; height: 97rpx; display: flex; box-sizing: border-box; width: 100rpx">
+      <text class="add-icon" style="width: 49rpx; height: 68rpx; display: block; box-sizing: border-box">+</text>
     </button>
   </view>
   

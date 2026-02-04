@@ -1,7 +1,7 @@
 <navigation-bar title="通知管理" back="{{true}}"></navigation-bar>
 
 <scroll-view class="scrollarea" scroll-y>
-  <view class="nav-placeholder" style="height: 114rpx; display: block; box-sizing: border-box"></view>
+  <view class="nav-placeholder" style="height: 16rpx; display: block; box-sizing: border-box"></view>
   <view class="notification-settings-container {{settings.bigFont ? 'big-font' : ''}}">
     <view class="content">
       <!-- 无障碍功能 -->

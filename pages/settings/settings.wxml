@@ -1,6 +1,6 @@
 <navigation-bar title="系统设置" back="{{true}}"></navigation-bar>
 <scroll-view class="scrollarea" scroll-y>
-  <view class="nav-placeholder" style="height: {{navHeight}}px;"></view>
+  <view class="nav-placeholder" style="height: 6rpx; display: block; box-sizing: border-box"></view>
   <view class="settings-container {{settings.bigFont ? 'big-font' : ''}}">
     <view class="page-header-alt">
       <view class="title-section">

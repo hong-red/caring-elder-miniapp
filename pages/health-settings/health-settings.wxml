@@ -1,6 +1,6 @@
 <navigation-bar title="健康提醒" back="{{true}}"></navigation-bar>
 <scroll-view class="scrollarea" scroll-y>
-  <view class="nav-placeholder" style="height: 152rpx; display: block; box-sizing: border-box"></view>
+  <view class="nav-placeholder" style="height: 45rpx; display: block; box-sizing: border-box"></view>
   <view class="health-settings-container {{settings.bigFont ? 'big-font' : ''}}">
     <view class="content">
     <view class="settings-section card">

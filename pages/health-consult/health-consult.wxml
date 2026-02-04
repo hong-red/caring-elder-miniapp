@@ -31,7 +31,7 @@
     bindscrolltolower="loadMoreMessages"
     enable-back-to-top
    style="height: 1079rpx; display: block; box-sizing: content-box; left: 0rpx; top: 0rpx">
-    <view class="message-wrapper" style="height: 1199rpx; display: flex; box-sizing: border-box">
+    <view class="message-wrapper" style="height: 1035rpx; display: flex; box-sizing: border-box">
 
       <!-- 欢迎引导卡片（仅在完全空聊天时显示） --> 
       <view class="welcome-section" wx:if="{{messages.length === 0 && !loading}}">
@@ -119,7 +119,7 @@
   </scroll-view>
 
   <!-- 底部固定操作区 -->
-  <view class="bottom-area">
+  <view class="bottom-area" style="height: 1675rpx; display: block; box-sizing: border-box; left: 0rpx; top: 1143rpx">
 
     <!-- 快捷问题横向滚动 -->
     <view class="quick-questions-panel" wx:if="{{quickQuestions.length > 0}}" style="height: 193rpx; display: block; box-sizing: border-box">
@@ -153,16 +153,20 @@
 
       <view class="health-data-grid" wx:if="{{showHealthData}}"> 
         <view class="data-card"> 
-          <text class="data-label">脉搏</text> 
-          <text class="data-val">{{currentHealthData.pulse || '--'}}<text class="data-unit">bpm</text></text> 
-        </view> 
-        <view class="data-card"> 
           <text class="data-label">心率</text> 
           <text class="data-val">{{currentHealthData.heartRate || '--'}}<text class="data-unit">bpm</text></text> 
         </view> 
         <view class="data-card"> 
           <text class="data-label">血压</text> 
           <text class="data-val">{{currentHealthData.systolic || '--'}}/{{currentHealthData.diastolic || '--'}}<text class="data-unit">mmHg</text></text> 
+        </view> 
+        <view class="data-card"> 
+          <text class="data-label">血氧</text> 
+          <text class="data-val">{{currentHealthData.oxygen || '--'}}<text class="data-unit">%</text></text> 
+        </view> 
+        <view class="data-card"> 
+          <text class="data-label">血糖</text> 
+          <text class="data-val">{{currentHealthData.bloodSugar || '--'}}<text class="data-unit">mmol/L</text></text> 
         </view> 
       </view> 
     </view>
@@ -182,9 +186,8 @@
           />
         </view>
         <button 
-          class="send-btn {{inputMessage.trim() ? 'active' : ''}}" 
+          class="send-btn active" 
           bindtap="sendMessage"
-          disabled="{{!inputMessage.trim()}}"
         >
           发送
         </button>

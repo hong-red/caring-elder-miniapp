@@ -26,12 +26,14 @@ Page({
       oxygen: 98,
       oxStatus: 'normal',
       oxPercent: 98,
+      bloodGlucose: 5.6,
+      bgStatus: 'normal',
       score: 92,
-    sourceName: 'Apple Watch',
-    sourceIcon: '⌚',
-    sourceType: 'device',
-    aiSummary: '您的心率和血压非常稳定，今日活动量适中，建议下午增加 15 分钟散步。',
-    todayChecked: false
+      sourceName: 'Apple Watch',
+      sourceIcon: '⌚',
+      sourceType: 'device',
+      aiSummary: '您的心率和血压非常稳定，今日活动量适中，建议下午增加 15 分钟散步。',
+      todayChecked: false
   },
   callTimer: null,
   isCallActive: false,
@@ -331,13 +333,22 @@ Page({
 
     // 获取真实健康数据
     const healthData = wx.getStorageSync('healthData') || [];
-    const latestRecord = healthData.length > 0 ? healthData[0] : null;
     
-    // 如果没有真实数据，使用模拟数据
-    const dataToProcess = latestRecord ? {
-      heartRate: parseInt(latestRecord.heartRate) || 75,
-      bloodPressure: latestRecord.systolic ? `${latestRecord.systolic}/${latestRecord.diastolic}` : '128/82',
-      oxygen: parseInt(latestRecord.oxygen) || 98,
+    // 分别获取每种类型的最新记录
+    const latestHeartRate = healthData.find(record => record.type === '心率') || null;
+    const latestBloodPressure = healthData.find(record => record.type === '血压') || null;
+    const latestOxygen = healthData.find(record => record.type === '血氧') || null;
+    const latestBloodGlucose = healthData.find(record => record.type === '血糖') || null;
+    
+    // 检查是否有任何真实数据
+    const hasRealData = latestHeartRate || latestBloodPressure || latestOxygen || latestBloodGlucose;
+    
+    // 如果有真实数据，分别提取每种指标的最新值
+    const dataToProcess = hasRealData ? {
+      heartRate: latestHeartRate ? parseInt(latestHeartRate.value) : 75,
+      bloodPressure: latestBloodPressure ? `${latestBloodPressure.systolic}/${latestBloodPressure.diastolic}` : '128/82',
+      oxygen: latestOxygen ? parseInt(latestOxygen.value) : 98,
+      bloodGlucose: latestBloodGlucose ? parseFloat(latestBloodGlucose.value) : 5.6,
       source: { type: 'manual', name: '手动记录', icon: '📝' }
     } : this.getMockHealthData();
 
@@ -366,6 +377,7 @@ Page({
       heartRate: 75 + Math.floor(Math.random() * 10),
       bloodPressure: '128/82',
       oxygen: 98,
+      bloodGlucose: (5.0 + Math.random() * 1.5).toFixed(1),
       source: source
     };
   },
@@ -377,6 +389,7 @@ Page({
     let hrStatus = 'normal';
     let bpStatus = 'normal';
     let oxStatus = 'normal';
+    let bgStatus = 'normal';
     let aiSummary = '心率血压稳定，生理指标表现优秀，请继续保持健康的生活习惯。';
 
     // 心率判断
@@ -404,6 +417,16 @@ Page({
       oxStatus = 'danger';
     }
 
+    // 血糖判断
+    const glucose = parseFloat(data.bloodGlucose);
+    if (glucose > 7.0 || glucose < 3.9) {
+      status = 'danger';
+      bgStatus = 'danger';
+    } else if (glucose > 6.1 || glucose < 4.4) {
+      status = status === 'danger' ? 'danger' : 'warning';
+      bgStatus = 'warning';
+    }
+
     if (status === 'danger') {
       overallText = '请尽快检查！';
       aiSummary = '注意！您的某些生理指标偏离正常范围，请及时休息，并联系医生或家人。';
@@ -419,6 +442,8 @@ Page({
       bpStatus: bpStatus,
       oxygen: data.oxygen,
       oxStatus: oxStatus,
+      bloodGlucose: glucose,
+      bgStatus: bgStatus,
       status: status,
       overallText: overallText,
       aiSummary: aiSummary,

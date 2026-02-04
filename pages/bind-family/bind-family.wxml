@@ -2,7 +2,7 @@
 <scroll-view class="scrollarea" scroll-y>
   <view class="nav-placeholder" style="height: {{navHeight}}px;"></view>
   <view class="container {{settings.bigFont ? 'big-font' : ''}}">
-    <view class="content">
+    <view class="content" style="height: 1562rpx; display: block; box-sizing: border-box">
     <form class="bind-form card">
       <view class="form-section">
         <view class="section-header">
