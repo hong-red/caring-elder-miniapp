@@ -68,7 +68,8 @@
   },
   "requiredPrivateInfos": [
     "chooseLocation",
-    "chooseAddress"
+    "chooseAddress",
+    "getLocation"
   ],
   "__usePrivacyCheck__": false,
   "requiredBackgroundModes": [

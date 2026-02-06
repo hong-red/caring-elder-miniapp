@@ -220,7 +220,7 @@ Page({
     });
   },
 
-  // 微信授权完善资料
+  // 微信静默登录
   onWechatLogin() {
     const { agreed } = this.data;
     
@@ -233,85 +233,84 @@ Page({
       return;
     }
     
-    // 1. 先获取用户头像和昵称
-    wx.getUserProfile({
-      desc: '用于完善个人资料，提供更好服务', // 12个字符，符合10-30字符要求
-      success: (profileRes) => {
-        const { nickName, avatarUrl } = profileRes.userInfo;
-        
-        // 更新本地用户信息
-        let currentUser = wx.getStorageSync('currentUser') || {};
-        let updatedUser = { ...currentUser };
-        updatedUser.nickname = nickName || '微信用户';
-        updatedUser.avatarUrl = avatarUrl || '';
-        updatedUser.isWechat = true;
-        
-        // 更新页面数据
-        this.setData({ currentUser: updatedUser });
-        
-        // 保存到本地存储
-        wx.setStorageSync('currentUser', updatedUser);
-        wx.setStorageSync('loginInfo', updatedUser);
-        
-        // 2. 从微信地址簿选择收货地址
-        wx.chooseAddress({
-          success: (addressRes) => {
-            console.log('获取收货地址成功:', addressRes);
-            
-            // 将地址信息添加到用户数据中
-            updatedUser.address = {
-              name: addressRes.userName,
-              phone: addressRes.telNumber,
-              province: addressRes.provinceName,
-              city: addressRes.cityName,
-              district: addressRes.countyName,
-              detail: addressRes.detailInfo,
-              fullAddress: `${addressRes.provinceName}${addressRes.cityName}${addressRes.countyName}${addressRes.detailInfo}`
-            };
-            
-            // 将地址中的电话号码设为用户默认电话号码
-            updatedUser.phone = addressRes.telNumber;
-            
-            // 更新本地存储
-            wx.setStorageSync('currentUser', updatedUser);
-            wx.setStorageSync('loginInfo', updatedUser);
-            this.setData({ currentUser: updatedUser });
-            
-            // 调用云函数更新用户信息
-            this.updateUserInfo(updatedUser, nickName);
-          },
-          fail: (err) => {
-            console.error('获取收货地址失败:', err);
-            
-            // 即使获取地址失败，也继续更新其他用户信息
-            wx.showToast({
-              title: '获取收货地址失败，将继续更新其他信息',
-              icon: 'none',
-              duration: 2000
-            });
-            
-            // 调用云函数更新用户信息（不包含地址）
-            this.updateUserInfo(updatedUser, nickName);
-          }
-        });
-      },
-      fail: (err) => {
-        console.error('获取用户信息失败:', err);
-        
-        // 具体错误提示
-        let errorMsg = '授权取消';
-        if (err.errMsg.includes('desc length')) {
-          errorMsg = '授权说明文字格式错误';
-        } else if (err.errMsg.includes('fail')) {
-          errorMsg = '授权失败，请重试';
-        } else if (err.errMsg.includes('permission denied')) {
-          errorMsg = '您拒绝了授权，请在设置中允许';
+    // 显示登录中提示
+    wx.showLoading({
+      title: '登录中...'
+    });
+    
+    // 使用静默登录，只获取openid，不请求用户授权
+    wx.login({
+      success: res => {
+        if (res.code) {
+          // 调用云函数获取openid
+          wx.cloud.callFunction({
+            name: 'login',
+            data: {
+              code: res.code,
+              role: this.data.loginType,
+              updateOnly: true
+            },
+            success: cloudRes => {
+              wx.hideLoading();
+              if (cloudRes.result && cloudRes.result.success) {
+                const userInfo = cloudRes.result.data;
+                
+                // 检查并设置默认值
+                if (!userInfo.nickname) {
+                  userInfo.nickname = '微信用户';
+                }
+                
+                // 标记为微信登录
+                userInfo.isWechat = true;
+                
+                // 存入本地缓存
+                wx.setStorageSync('currentUser', userInfo);
+                wx.setStorageSync('loginInfo', userInfo);
+                
+                // 更新页面数据
+                this.setData({ currentUser: userInfo });
+                
+                wx.showToast({
+                  title: '登录成功',
+                  icon: 'success'
+                });
+                
+                // 跳转到主页面
+                setTimeout(() => {
+                  wx.reLaunch({
+                    url: '/pages/main/main'
+                  });
+                }, 1500);
+              } else {
+                wx.showToast({
+                  title: '登录失败，请重试',
+                  icon: 'none'
+                });
+              }
+            },
+            fail: err => {
+              wx.hideLoading();
+              console.error('静默登录失败:', err);
+              wx.showToast({
+                title: '登录失败，请重试',
+                icon: 'none'
+              });
+            }
+          });
+        } else {
+          wx.hideLoading();
+          wx.showToast({
+            title: '登录失败，请重试',
+            icon: 'none'
+          });
         }
-        
+      },
+      fail: err => {
+        wx.hideLoading();
+        console.error('wx.login调用失败:', err);
         wx.showToast({
-          title: errorMsg,
-          icon: 'none',
-          duration: 2000
+          title: '登录失败，请重试',
+          icon: 'none'
         });
       }
     });
